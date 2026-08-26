@@ -43,6 +43,17 @@ response. It has no tools, scripts, resources, credentials, or file writes.
 - The probe does not alter files, settings, skills, automations, or cloud state.
 - After removal, the same request no longer activates the probe.
 
+## Current Result
+
+The Windows installation-and-discovery half passed on Scout 1.0.73. The probe
+returned its exact expected response in a new conversation from the documented
+`.copilot/skills` folder. It did not appear in the in-app custom-skill
+inventory, and `loadCopilotCliSkills` remained disabled. See
+[PROBE-REPORT-2026-08-26.md](PROBE-REPORT-2026-08-26.md).
+
+The removal-and-non-discovery half remains pending. Keep the probe installed
+until that separately observed test is run.
+
 ## Stop Conditions
 
 Stop and document the result if Scout does not discover the folder, requires an
