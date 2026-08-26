@@ -16,8 +16,17 @@ This is a harmless pilot package. It contains only Markdown instructions and one
 Markdown reference. It has no scripts, assets, credentials, MCP configuration,
 external calls, or file-writing actions.
 
-Import each skill folder through Scout's Skills UI. Do not copy these folders
-into an undocumented internal storage path.
+Import each **direct skill folder** through Scout's Skills UI. Do not select
+this package root: it is a catalog folder and intentionally has no root
+`SKILL.md`.
+
+```text
+act-constellation-curation/
+act-critical-review/
+act-session-closeout/
+```
+
+Do not copy these folders into an undocumented internal storage path.
 
 ## Expected UI Result
 

@@ -18,14 +18,24 @@ then verify source-instance discovery and same-user cloud synchronization.
 ## Source-Instance Procedure
 
 1. In Scout Skills UI, select **Import**.
-2. Import each of the three skill folders individually:
-   - `act-constellation-curation`
-   - `act-critical-review`
-   - `act-session-closeout`
-3. Confirm all three appear in the UI.
-4. Start a new Scout conversation for each expected request and record whether the
+2. Do **not** select the package root
+   `packages/act-skills-for-scout-v0.1.0/`. It has no root `SKILL.md`, so the
+   UI correctly rejects it.
+3. Import each direct skill folder individually:
+
+   ```text
+   packages/act-skills-for-scout-v0.1.0/act-constellation-curation/
+   packages/act-skills-for-scout-v0.1.0/act-critical-review/
+   packages/act-skills-for-scout-v0.1.0/act-session-closeout/
+   ```
+
+   Each selected folder has `SKILL.md` at its root. The UI also supports direct
+   `.md` selection and raw `SKILL.md` URLs, but this test uses folder import to
+   determine whether `references/` is retained.
+4. Confirm all three appear in the UI.
+5. Start a new Scout conversation for each expected request and record whether the
    matching skill is selected.
-5. For `act-session-closeout`, confirm the reference checklist remains available
+6. For `act-session-closeout`, confirm the reference checklist remains available
    on demand without being copied into the top-level skill instructions.
 
 ## Second-Instance Procedure
