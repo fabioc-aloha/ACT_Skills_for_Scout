@@ -31,6 +31,13 @@ deleted elsewhere are reconciled automatically; the second instance later showed
 many retained disabled ACT skills. See
 [CLOUD-SYNC-REPORT-2026-08-26.md](docs/CLOUD-SYNC-REPORT-2026-08-26.md).
 
+### Current Test Baseline
+
+Both Scout instances now have the same Scout-visible baseline: no custom skills,
+ten bundled skills, no automations, and heartbeat disabled. The reset scope and
+retained plugin-source boundary are recorded in
+[TWO-INSTANCE-RESET-2026-08-26.md](docs/TWO-INSTANCE-RESET-2026-08-26.md).
+
 ## Repository Layout
 
 | Path | Purpose |
