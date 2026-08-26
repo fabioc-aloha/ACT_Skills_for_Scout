@@ -16,9 +16,10 @@ whether a future Copilot plugin/Mall distribution path can be Scout-compatible.
 Windows local-folder discovery passed on Scout 1.0.73: the probe was discovered
 from `~/.copilot/skills` in a new conversation, while
 `loadCopilotCliSkills` remained disabled. The probe did not appear in the
-in-app custom-skill inventory. Removal/non-discovery, updates, rollback, UI
-management, macOS, cross-device behavior, Copilot plugins, and Plugin Mall
-remain unvalidated.
+in-app custom-skill inventory. After removal, the non-discovery check was
+intercepted by an unexpected ACT bridge and is therefore inconclusive. Updates,
+rollback, UI management, macOS, cross-device behavior, Copilot plugins, and
+Plugin Mall remain unvalidated.
 
 ## Repository Layout
 

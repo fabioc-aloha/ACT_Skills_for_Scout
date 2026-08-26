@@ -51,8 +51,10 @@ returned its exact expected response in a new conversation from the documented
 inventory, and `loadCopilotCliSkills` remained disabled. See
 [PROBE-REPORT-2026-08-26.md](PROBE-REPORT-2026-08-26.md).
 
-The removal-and-non-discovery half remains pending. Keep the probe installed
-until that separately observed test is run.
+The probe was removed, but the non-discovery result is inconclusive because a
+new session invoked an unexpected ACT bridge. See
+[PROBE-REPORT-2026-08-26.md](PROBE-REPORT-2026-08-26.md). Do not repeat the
+probe until the bridge behavior is independently traced.
 
 ## Stop Conditions
 

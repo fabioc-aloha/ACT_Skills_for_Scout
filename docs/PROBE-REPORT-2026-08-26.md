@@ -31,17 +31,37 @@ credentials, external calls, or file-writing behavior.
 - No Scout settings, automations, cloud state, marketplace registrations, or
   source files were changed by this probe.
 
-## Scope and Remaining Verification
+## Removal Test
 
-This is a Windows local-folder discovery result only. It does not validate
-Plugin Mall delivery, Copilot plugins, synchronization, updates, or macOS.
-
-The removal-and-non-discovery half of `docs/TEST-PLAN.md` remains to be run in
-a separate new Scout conversation after deleting only:
+The probe folder was deleted:
 
 ```text
 C:\Users\fabioc\.copilot\skills\act-skills-for-scout-probe\
 ```
 
-No removal was performed during this run so the installed probe remains
-available for that follow-up test.
+In a separate new Scout conversation, the same request did not run the removed
+probe. Instead, it returned:
+
+```text
+Probe blocked: the ACT Scout skill bridge found no installed source for the
+first allowlisted skill:
+
+C:\Users\fabioc\.copilot\installed-plugins\alex-mall\alex-act-core\.github\skills\act-tenets\SKILL.md
+```
+
+The expected plugin source directory was absent, `loadCopilotCliSkills` remained
+disabled, and no local folders or Scout configuration were changed by that
+session.
+
+## Conclusion
+
+Windows local-folder discovery passed. The removal/non-discovery test is
+**inconclusive**: the folder was absent, but an unexpected ACT bridge intercepted
+the follow-up request. Do not claim a clean removal lifecycle until that bridge
+behavior is independently traced and the test is repeated in a clean Scout
+session.
+
+## Scope and Remaining Verification
+
+This result does not validate Plugin Mall delivery, Copilot plugins,
+synchronization, updates, UI management, or macOS.
