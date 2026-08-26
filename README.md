@@ -21,6 +21,14 @@ intercepted by an unexpected ACT bridge and is therefore inconclusive. Updates,
 rollback, UI management, macOS, cross-device behavior, Copilot plugins, and
 Plugin Mall remain unvalidated.
 
+### Cloud-Sync Result
+
+Scout-managed skill lifecycle propagation passed between two instances signed
+into the same Microsoft 365 user. The probe arrived disabled on the second
+instance, ran after the user enabled it in the Skills UI, and disappeared from
+both instances after source deletion. See
+[CLOUD-SYNC-REPORT-2026-08-26.md](docs/CLOUD-SYNC-REPORT-2026-08-26.md).
+
 ## Repository Layout
 
 | Path | Purpose |
@@ -29,6 +37,7 @@ Plugin Mall remain unvalidated.
 | `probes/local-folder/` | Harmless disposable package used to test local Scout discovery. |
 | `docs/TEST-PLAN.md` | Required evidence and stop conditions for the probe. |
 | `docs/PROBE-REPORT-2026-08-26.md` | Windows discovery result and remaining validation work. |
+| `docs/CLOUD-SYNC-REPORT-2026-08-26.md` | Source-to-second-instance creation, activation, and deletion result. |
 | `docs/UNINSTALL.md` | Removal instructions for every planned delivery path. |
 
 ## Safety Rules
