@@ -26,7 +26,9 @@ Plugin Mall remain unvalidated.
 Scout-managed skill lifecycle propagation passed between two instances signed
 into the same Microsoft 365 user. The probe arrived disabled on the second
 instance, ran after the user enabled it in the Skills UI, and disappeared from
-both instances after source deletion. See
+both instances after source deletion. This does not prove that historical skills
+deleted elsewhere are reconciled automatically; the second instance later showed
+many retained disabled ACT skills. See
 [CLOUD-SYNC-REPORT-2026-08-26.md](docs/CLOUD-SYNC-REPORT-2026-08-26.md).
 
 ## Repository Layout

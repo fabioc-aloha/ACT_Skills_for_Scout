@@ -31,11 +31,16 @@ Expected response: `ACT-SCOUT-SYNC-PROBE-20260826-6CBF`
 All success criteria passed on 2026-08-26. See
 [CLOUD-SYNC-REPORT-2026-08-26.md](CLOUD-SYNC-REPORT-2026-08-26.md).
 
+The result applies only to the probe. Later observation found historical ACT
+skills retained on the second instance after source-side deletion, so the test
+does not establish account-wide cleanup behavior.
+
 ## Success Criteria
 
 - The second instance displays the exact probe skill without a manual file copy.
 - The second instance can run the probe if requested.
-- Deletion propagates, leaving no probe skill on either instance.
+- The newly created probe deletion propagates, leaving no probe skill on either
+  instance.
 
 ## Boundaries
 

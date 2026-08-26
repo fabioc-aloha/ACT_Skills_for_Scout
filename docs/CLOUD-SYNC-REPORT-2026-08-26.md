@@ -18,7 +18,7 @@ instances signed into the same Microsoft 365 user.
 | Enable on second instance | The user enabled it through the Skills UI. |
 | Invoke on second instance | A new conversation returned `ACT-SCOUT-SYNC-PROBE-20260826-6CBF` exactly. |
 | Delete on source | The probe was deleted through Scout's native lifecycle. |
-| Propagated deletion | The skill disappeared from both source and second instances. |
+| Propagated deletion | The probe disappeared from both source and second instances. |
 
 ## Source Verification After Deletion
 
@@ -27,13 +27,23 @@ metadata entries, and no pending sync writes.
 
 ## Conclusion
 
-For Scout 1.0.73, a skill created through the native in-app lifecycle is a
-cloud-synced, per-user capability. It appears disabled by default on a second
-instance and can be enabled there through the UI. Deletion propagates.
+For Scout 1.0.73, the newly created probe was a cloud-synced, per-user
+capability. It appeared disabled by default on a second instance, could be
+enabled there through the UI, and its deletion propagated.
 
 ## Scope
 
 This validates Scout-managed skills for one Microsoft 365 user across two Scout
 instances. It does not validate public-package import, automatic release
 updates, cross-account sharing, macOS, Plugin Mall, Copilot CLI, or enterprise
-distribution.
+distribution. It also does not prove that deletion removes historical skills
+already retained by another instance.
+
+## Later Observation
+
+After the probe completed, the second instance displayed many disabled ACT skills
+that had previously been deleted on the source instance. Therefore, treat cloud
+sync as per-skill propagation for newly observed lifecycle changes, not as a
+reliable account-wide reconciliation or deletion mechanism. Each pre-existing
+skill on each instance requires explicit inventory and a separate removal
+decision.
