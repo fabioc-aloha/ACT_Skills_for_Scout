@@ -1011,7 +1011,7 @@
 }
 
 .markdown-body a:has(>p,>div,>pre,>blockquote):not(:has(.snippet-clipboard-content,>pre)) {
-  width: fit-content;
+  width: 100%;
 }
 
 .markdown-body a:has(>p,>div,>pre,>blockquote):has(.snippet-clipboard-content,>pre):focus-visible {
@@ -1193,13 +1193,17 @@ html {
   font-size: 1.55rem;
   font-weight: 650;
   line-height: 1.25;
-  border-bottom-color: var(--scout-border);
+  border-bottom: 2px solid #8db8c5;
 }
 
 .markdown-body h3 {
   margin-top: 2.25rem;
+  margin-bottom: .75rem;
+  padding-left: .75rem;
   font-size: 1.22rem;
   font-weight: 650;
+  line-height: 1.35;
+  border-left: 3px solid #b9d5dd;
 }
 
 .markdown-body h4,
@@ -1278,6 +1282,7 @@ html {
 .markdown-body table {
   width: 100%;
   font-size: .94rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .markdown-body table th,
@@ -1289,6 +1294,10 @@ html {
 .markdown-body table th {
   color: #303437;
   background-color: #eceae6;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  box-shadow: inset 0 -1px 0 var(--scout-border);
 }
 
 .markdown-body table tr,
@@ -1298,6 +1307,10 @@ html {
 
 .markdown-body table tr:nth-child(2n) {
   background-color: #f5f3ef;
+}
+
+.markdown-body table tbody tr:hover {
+  background-color: #eaf3f5;
 }
 
 .markdown-body img {
@@ -1311,8 +1324,13 @@ html {
   border-radius: 4px;
 }
 
+.markdown-body details[open] {
+  border-color: #8aa7ae;
+}
+
 .markdown-body summary {
   color: #303437;
+  cursor: pointer;
   font-weight: 600;
 }
 
@@ -1323,6 +1341,10 @@ html {
 .markdown-body .footnotes {
   color: var(--scout-muted);
   border-top-color: var(--scout-border);
+}
+
+.markdown-body .footnotes li:target {
+  background-color: #fff8c5;
 }
 
 .markdown-body .markdown-alert {
@@ -1396,6 +1418,65 @@ html {
   color: #99551f;
 }
 
+.markdown-body .hljs-comment,
+.markdown-body .hljs-quote,
+.markdown-body .hljs-doctag {
+  color: #57606a;
+  font-style: italic;
+}
+
+.markdown-body .hljs-keyword,
+.markdown-body .hljs-literal,
+.markdown-body .hljs-symbol,
+.markdown-body .hljs-name,
+.markdown-body .hljs-selector-tag,
+.markdown-body .hljs-tag {
+  color: #0550ae;
+}
+
+.markdown-body .hljs-built_in,
+.markdown-body .hljs-builtin-name,
+.markdown-body .hljs-attr,
+.markdown-body .hljs-attribute,
+.markdown-body .hljs-subst,
+.markdown-body .hljs-selector-attr,
+.markdown-body .hljs-selector-pseudo,
+.markdown-body .hljs-meta,
+.markdown-body .hljs-meta-keyword {
+  color: #0a5f74;
+}
+
+.markdown-body .hljs-string,
+.markdown-body .hljs-meta-string,
+.markdown-body .hljs-regexp,
+.markdown-body .hljs-template-tag,
+.markdown-body .hljs-template-variable,
+.markdown-body .hljs-deletion {
+  color: #a63d40;
+}
+
+.markdown-body .hljs-variable,
+.markdown-body .hljs-type,
+.markdown-body .hljs-class,
+.markdown-body .hljs-section {
+  color: #6639ba;
+}
+
+.markdown-body .hljs-number,
+.markdown-body .hljs-bullet,
+.markdown-body .hljs-selector-id,
+.markdown-body .hljs-selector-class,
+.markdown-body .hljs-addition {
+  color: #6f4e00;
+}
+
+.markdown-body .hljs-title,
+.markdown-body .hljs-function,
+.markdown-body .hljs-params,
+.markdown-body .hljs-formula {
+  color: #24292f;
+}
+
 .markdown-body .mermaid-wrapper {
   --mermaid-canvas: #ffffff;
   --mermaid-text: #24292f;
@@ -1412,12 +1493,14 @@ html {
   --mermaid-neutral: #f6f8fa;
   --mermaid-neutral-border: #d0d7de;
   box-sizing: border-box;
-  width: 100%;
+  width: fit-content;
+  max-width: calc(100% - 2rem);
   height: auto !important;
   min-height: 0;
-  margin: 1.5rem 0 2rem;
-  padding: 1rem 4rem 1rem .5rem;
-  overflow: visible;
+  margin: 1.5rem auto 2rem;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: visible;
   background-color: var(--mermaid-canvas);
   border: 1px solid var(--scout-border);
   border-radius: 4px;
@@ -1432,16 +1515,14 @@ html {
 
 .markdown-body .mermaid-content {
   box-sizing: border-box;
-  width: 100%;
-  height: auto !important;
-  min-height: 0;
+  max-width: 100%;
   padding: 0;
   overflow: visible;
 }
 
 .markdown-body .mermaid {
   box-sizing: border-box;
-  width: 100%;
+  max-width: 100%;
   height: auto !important;
   margin: 0;
   overflow: visible;
@@ -1529,7 +1610,38 @@ html {
 .markdown-body .mermaid .cluster-label,
 .markdown-body .mermaid .cluster-label p {
   color: var(--mermaid-text) !important;
-  font-weight: 600 !important;
+}
+
+.markdown-body .mermaid text.actor,
+.markdown-body .mermaid .noteText,
+.markdown-body .mermaid .labelText,
+.markdown-body .mermaid .loopText,
+.markdown-body .mermaid .sectionTitle,
+.markdown-body .mermaid .stateLabel text,
+.markdown-body .mermaid g.stateGroup text,
+.markdown-body .mermaid .statediagram-note text,
+.markdown-body .mermaid .nodeLabel :is(div, p, span),
+.markdown-body .mermaid .cluster-label :is(div, p, span),
+.markdown-body .mermaid .label :is(div, p, span) {
+  color: var(--mermaid-text) !important;
+  fill: var(--mermaid-text) !important;
+  opacity: 1 !important;
+}
+
+.markdown-body .mermaid text.actor > tspan,
+.markdown-body .mermaid .noteText > tspan,
+.markdown-body .mermaid .labelText > tspan,
+.markdown-body .mermaid .loopText > tspan,
+.markdown-body .mermaid .sectionTitle > tspan,
+.markdown-body .mermaid .stateLabel text > tspan,
+.markdown-body .mermaid g.stateGroup text > tspan,
+.markdown-body .mermaid .statediagram-note text > tspan,
+.markdown-body .mermaid .nodeLabel tspan,
+.markdown-body .mermaid .cluster-label tspan,
+.markdown-body .mermaid .label tspan {
+  fill: var(--mermaid-text) !important;
+  stroke: none !important;
+  opacity: 1 !important;
 }
 
 .markdown-body .mermaid .edgeLabel {
@@ -1603,13 +1715,60 @@ html {
   border-radius: 4px;
 }
 
+.markdown-body figure {
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.markdown-body figcaption {
+  margin-top: .5rem;
+  color: var(--scout-muted);
+  font-size: .9rem;
+  text-align: center;
+}
+
+@media print {
+  .markdown-body {
+    width: 100%;
+    padding: 0;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    break-after: avoid;
+  }
+
+  .markdown-body table tr,
+  .markdown-body figure,
+  .markdown-body pre,
+  .markdown-body blockquote,
+  .markdown-body details,
+  .markdown-body .mermaid-wrapper {
+    break-inside: avoid;
+  }
+
+  .markdown-body table th {
+    position: static;
+  }
+
+  .markdown-body .mermaid-zoom-controls,
+  .markdown-body .mermaid-resize-handle {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   .markdown-body {
     padding: 1.25rem 0 2rem;
   }
 
   .markdown-body .mermaid-wrapper {
-    padding: .75rem 3rem .75rem .375rem;
+    max-width: calc(100% - 1rem);
+    padding: 0;
   }
-}
 
+}
