@@ -58,7 +58,8 @@ configuration, repository files, or Scout setting changes are required.
 
 On 2026-08-26, the v0.1.0 library replicated to a second machine through
 OneDrive and each machine showed all three user-global skill folders after the
-one-time bootstrap. Fresh-conversation skill invocation remains to be recorded.
+one-time bootstrap. v0.2.0 adds the workspace bootstrap skill and requires its
+own publication and fresh-conversation validation.
 
 See [USER-GLOBAL-DELIVERY.md](docs/USER-GLOBAL-DELIVERY.md) for the operational
 mechanism and [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md)

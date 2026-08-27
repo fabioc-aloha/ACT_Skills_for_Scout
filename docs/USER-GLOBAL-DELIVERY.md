@@ -49,6 +49,7 @@ skills\
   act-constellation-curation\
   act-critical-review\
   act-session-closeout\
+  act-vscode-workspace-bootstrap\
 ```
 
 Each folder directly beneath `skills\` must contain a `SKILL.md`. This direct
@@ -119,9 +120,11 @@ library itself.
 ## Scope and Evidence
 
 This mechanism has passed OneDrive propagation and one-time bootstrap across two
-Windows machines for the three v0.1.0 skills. It is independent of Scout's
-native custom-skill lifecycle, whose stale-state behavior makes it unsuitable as
-the installation source of truth.
+Windows machines for the three v0.1.0 skills. The v0.2.0 package adds
+`act-vscode-workspace-bootstrap` and requires its own publication and
+fresh-conversation validation. The mechanism is independent of Scout's native
+custom-skill lifecycle, whose stale-state behavior makes it unsuitable as the
+installation source of truth.
 
 Remaining validation is to invoke each skill in a new Scout conversation and to
 verify that a published update is visible through the existing junctions on the

@@ -17,6 +17,12 @@ machine without any repository- or workspace-specific setup.
   custom-skill inventory, a plugin, or a marketplace.
 - Native Scout import and cloud sync are outside this delivery path.
 
+## Original v0.1.0 Test
+
+The procedure and result below are the original three-skill v0.1.0 delivery
+test. The v0.2.0 workspace-bootstrap addition requires a new publication and
+fresh-conversation invocation record.
+
 ## Publish on One Machine
 
 From the cloned repository, publish the current package and enable it on the

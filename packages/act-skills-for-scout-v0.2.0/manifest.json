@@ -1,0 +1,15 @@
+{
+  "name": "act-skills-for-scout",
+  "version": "0.2.0",
+  "status": "pilot",
+  "skills": [
+    "act-constellation-curation",
+    "act-critical-review",
+    "act-session-closeout",
+    "act-vscode-workspace-bootstrap"
+  ],
+  "containsScripts": false,
+  "containsMcpConfiguration": false,
+  "containsCredentials": false,
+  "containsStaticAssets": true
+}
