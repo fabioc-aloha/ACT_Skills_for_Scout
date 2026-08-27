@@ -1,8 +1,8 @@
 # ACT Skills for Scout v1.1.0
 
 Curated Scout-native package for user-global Scout discovery through the
-OneDrive-backed ACT skill library. It is pending source-machine publication and
-fresh-conversation validation.
+OneDrive-backed ACT skill library. It is published on the source machine and
+pending fresh-conversation and second-machine validation.
 
 ## Contents
 
