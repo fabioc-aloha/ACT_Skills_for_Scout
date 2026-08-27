@@ -155,8 +155,9 @@ v0.4.0 manifest, previewed the exact installer command, requested confirmation,
 and preserved all five matching junctions.
 
 v1.1.1 is the current publisher default and hardens
-`act-skill-inventory-report` for all host-reported scopes. It remains pending
-source-machine publication, manual installation on each target machine for its
-updated instructions, and fresh-conversation validation. It must also verify
-that a published update is visible through existing junctions on the second
-machine. macOS support has not been evaluated.
+`act-skill-inventory-report` for all host-reported scopes. On 2026-08-26, its
+OneDrive library was published and all 19 source-machine junctions were
+confirmed. It remains pending manual installation on each target machine for its
+updated instructions and fresh-conversation validation. It must also verify that
+a published update is visible through existing junctions on the second machine.
+macOS support has not been evaluated.
