@@ -5,9 +5,8 @@ Scout.
 
 ## Status
 
-**Curated Scout-native v1.1.0 package published on the source machine;
-fresh-conversation and second-machine validation are pending. Not a Plugin Mall
-package.**
+**Curated Scout-native v1.1.1 patch package pending publication and
+fresh-conversation validation. Not a Plugin Mall package.**
 
 This repository is the versioned source for portable Agent Skills folders. Its
 delivery testbed publishes a selected package to a OneDrive-synchronized personal
@@ -58,15 +57,15 @@ package. OneDrive propagates that library to the user's other machines. Each
 machine runs the local bootstrap once to add user-level junctions. No project
 configuration, repository files, or Scout setting changes are required.
 
-The v1.1.0 package contains 19 direct skills and is the publisher default. On
-2026-08-26, its OneDrive library was published and all 19 source-machine
-junctions were created or confirmed. Fresh-conversation and second-machine
-validation remain pending. The validated earlier findings remain historical:
-v0.1.0 replicated through OneDrive to a second machine, and the v0.4.0 in-app
-update flow passed there.
+The v1.1.1 package contains 19 direct skills and is the publisher default. Its
+reporter contract is hardened for all host-reported scopes and remains pending
+source-machine publication and fresh-conversation validation. The validated
+earlier findings remain historical: v1.0.0 published 18 matching source-machine
+junctions, v0.1.0 replicated through OneDrive to a second machine, and the
+v0.4.0 in-app update flow passed there.
 
-See the [v1.1.0 package inventory](packages/act-skills-for-scout-v1.1.0/README.md)
-and [provenance](packages/act-skills-for-scout-v1.1.0/PROVENANCE.md) for the
+See the [v1.1.1 package inventory](packages/act-skills-for-scout-v1.1.1/README.md)
+and [provenance](packages/act-skills-for-scout-v1.1.1/PROVENANCE.md) for the
 full payload and its source-derived adaptations.
 
 See [USER-GLOBAL-DELIVERY.md](docs/USER-GLOBAL-DELIVERY.md) for the operational

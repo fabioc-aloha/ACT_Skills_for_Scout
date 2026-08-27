@@ -179,6 +179,13 @@ published to the source machine's OneDrive library, whose manifest reported
 It must still be manually linked once on each additional machine and validated
 in a fresh Scout conversation before it can be claimed as available.
 
+## v1.1.1 Pending Validation
+
+Version 1.1.1 hardens `act-skill-inventory-report` so every host-reported scope
+receives a total row and non-bundled, non-Global-ACT rows remain `Not exposed`.
+It must be published, then validated against the host inventory on both
+machines in fresh Scout conversations.
+
 ## Removal
 
 From the synced OneDrive library, run:
