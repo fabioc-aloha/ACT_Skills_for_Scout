@@ -1,13 +1,16 @@
 [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
 param(
-    [string]$LibraryRoot = (Join-Path $PSScriptRoot 'skills'),
+    [string]$LibraryRoot = $(if ($env:OneDrive) {
+        Join-Path $env:OneDrive 'Documents\ScoutSkills\ACT_Skills_for_Scout'
+    }),
     [string]$SkillsRoot = (Join-Path $HOME '.copilot\skills')
 )
 
 $ErrorActionPreference = 'Stop'
 
 $libraryPath = (Resolve-Path -LiteralPath $LibraryRoot).Path
-$skills = Get-ChildItem -LiteralPath $libraryPath -Directory |
+$librarySkillsRoot = Join-Path $libraryPath 'skills'
+$skills = Get-ChildItem -LiteralPath $librarySkillsRoot -Directory |
     Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') }
 
 foreach ($skill in $skills) {

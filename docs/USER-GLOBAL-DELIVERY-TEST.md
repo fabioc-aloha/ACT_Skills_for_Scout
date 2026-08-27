@@ -19,10 +19,11 @@ machine without any repository- or workspace-specific setup.
 
 ## Publish on One Machine
 
-From the cloned repository, publish the current package:
+From the cloned repository, publish the current package and enable it on the
+source machine:
 
 ```powershell
-.\scripts\Publish-ActSkillsLibrary.ps1
+.\scripts\Install-ActSkillsForScout.ps1 -Publish
 ```
 
 This creates the following OneDrive-synchronized library:
@@ -38,8 +39,8 @@ This creates the following OneDrive-synchronized library:
     act-session-closeout\
 ```
 
-Use `-Force` only to update the direct skill folders already managed by this
-library. The publisher does not remove obsolete folders or junctions.
+The source installer updates only direct skill folders already managed by this
+library. It does not remove obsolete folders or junctions.
 
 ## Bootstrap on Each Machine
 

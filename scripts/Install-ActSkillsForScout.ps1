@@ -1,17 +1,34 @@
 [CmdletBinding(SupportsShouldProcess)]
 param(
-    [string]$LibraryRoot = (Join-Path $PSScriptRoot 'skills'),
-    [string]$SkillsRoot = (Join-Path $HOME '.copilot\skills')
+    [string]$LibraryRoot = $(if ($env:OneDrive) {
+        Join-Path $env:OneDrive 'Documents\ScoutSkills\ACT_Skills_for_Scout'
+    }),
+    [string]$SkillsRoot = (Join-Path $HOME '.copilot\skills'),
+    [switch]$Publish
 )
 
 $ErrorActionPreference = 'Stop'
 
+$publisher = Join-Path $PSScriptRoot 'Publish-ActSkillsLibrary.ps1'
+if ($Publish) {
+    if (-not (Test-Path -LiteralPath $publisher)) {
+        throw '-Publish is available only from the ACT Skills for Scout source repository.'
+    }
+
+    & $publisher -LibraryRoot $LibraryRoot -Force
+}
+
+if (-not $LibraryRoot) {
+    throw 'OneDrive is not configured. Supply -LibraryRoot explicitly.'
+}
+
 $libraryPath = (Resolve-Path -LiteralPath $LibraryRoot).Path
-$skills = Get-ChildItem -LiteralPath $libraryPath -Directory |
+$librarySkillsRoot = Join-Path $libraryPath 'skills'
+$skills = Get-ChildItem -LiteralPath $librarySkillsRoot -Directory |
     Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') }
 
 if ($skills.Count -eq 0) {
-    throw "No direct skill folders with SKILL.md were found in $libraryPath."
+    throw "No direct skill folders with SKILL.md were found in $librarySkillsRoot."
 }
 
 New-Item -ItemType Directory -Path $SkillsRoot -Force | Out-Null

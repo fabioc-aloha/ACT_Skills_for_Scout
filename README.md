@@ -64,6 +64,24 @@ See [USER-GLOBAL-DELIVERY.md](docs/USER-GLOBAL-DELIVERY.md) for the operational
 mechanism and [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md)
 for its acceptance record.
 
+## Quick Start
+
+On the source machine, publish the current package and enable it for that user
+with one command:
+
+```powershell
+Set-Location C:\Development\ACT_Skills_for_Scout
+.\scripts\Install-ActSkillsForScout.ps1 -Publish
+```
+
+After OneDrive synchronizes, each additional machine enables the same library
+with one command:
+
+```powershell
+Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
+.\Install-ActSkillsForScout.ps1
+```
+
 ## Repository Layout
 
 | Path | Purpose |

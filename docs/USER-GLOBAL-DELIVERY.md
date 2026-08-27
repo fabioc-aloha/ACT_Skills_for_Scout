@@ -12,7 +12,7 @@ machine uses the same user-global skills.
 GitHub repository
   Versioned source package
         |
-        | Publish-ActSkillsLibrary.ps1
+        | Install-ActSkillsForScout.ps1 -Publish
         v
 OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout\
   Synced personal library
@@ -54,25 +54,19 @@ skills\
 Each folder directly beneath `skills\` must contain a `SKILL.md`. This direct
 folder shape is the contract consumed by the bootstrap and exposed to Scout.
 
-## Publish
+## Source Machine Install and Update
 
-On the machine that maintains the repository, update the source package and
-publish it:
+On the machine that maintains the repository, publish the current package and
+enable its user-global junctions with one command:
 
 ```powershell
 Set-Location C:\Development\ACT_Skills_for_Scout
-.\scripts\Publish-ActSkillsLibrary.ps1
+.\scripts\Install-ActSkillsForScout.ps1 -Publish
 ```
 
-For an existing published library, update its managed skill folders:
-
-```powershell
-.\scripts\Publish-ActSkillsLibrary.ps1 -Force
-```
-
-The publisher copies only direct skill folders and the two bootstrap scripts.
-It does not modify `~\.copilot\skills`, Scout settings, a project, a workspace,
-or native Scout custom skills.
+`-Publish` updates the managed OneDrive library and then creates or confirms the
+source machine's junctions. It does not modify Scout settings, a project, a
+workspace, or native Scout custom skills.
 
 ## Install on a Machine
 
@@ -102,7 +96,7 @@ for this delivery path.
 ## Updates
 
 1. Update and commit the source package in the GitHub repository.
-2. Run `Publish-ActSkillsLibrary.ps1 -Force` on the publishing machine.
+2. Run `Install-ActSkillsForScout.ps1 -Publish` on the publishing machine.
 3. Wait for OneDrive synchronization to complete on the other machines.
 4. Start a new Scout conversation where necessary.
 
