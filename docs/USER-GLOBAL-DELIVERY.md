@@ -50,6 +50,7 @@ skills\
   act-critical-review\
   act-session-closeout\
   act-vscode-workspace-bootstrap\
+  act-skill-library-update\
 ```
 
 Each folder directly beneath `skills\` must contain a `SKILL.md`. This direct
@@ -122,9 +123,12 @@ library itself.
 This mechanism has passed OneDrive propagation and one-time bootstrap across two
 Windows machines for the three v0.1.0 skills. The v0.3.0 package extends
 `act-vscode-workspace-bootstrap` with merge-safe GitHub and Azure DevOps
-scaffolding and requires its own publication and fresh-conversation validation.
-The mechanism is independent of Scout's native custom-skill lifecycle, whose
-stale-state behavior makes it unsuitable as the installation source of truth.
+scaffolding; v0.4.0 adds `act-skill-library-update`, which lets Scout invoke the
+synced-library installer after explicit user confirmation. Each new updater
+release still needs one manual installer run per machine before it can be invoked
+there. The mechanism is independent of Scout's native custom-skill lifecycle,
+whose stale-state behavior makes it unsuitable as the installation source of
+truth.
 
 Remaining validation is to invoke each skill in a new Scout conversation and to
 verify that a published update is visible through the existing junctions on the

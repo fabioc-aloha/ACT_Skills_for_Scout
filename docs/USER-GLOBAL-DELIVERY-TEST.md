@@ -123,6 +123,12 @@ installer must be rerun once to refresh the existing skill junction. A fresh
 Scout conversation must then validate discovery and user-approved scaffold
 behavior.
 
+## v0.4.0 Pending Result
+
+Version 0.4.0 adds `act-skill-library-update`. It must first be manually linked
+once on each machine through the synced installer. After that, a fresh Scout
+conversation can validate its explicit-confirmation update flow.
+
 ## Removal
 
 From the synced OneDrive library, run:
