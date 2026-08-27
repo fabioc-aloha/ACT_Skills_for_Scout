@@ -60,7 +60,9 @@ On 2026-08-26, the v0.1.0 library replicated to a second machine through
 OneDrive and each machine showed all three user-global skill folders after the
 one-time bootstrap. Fresh-conversation skill invocation remains to be recorded.
 
-See [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md).
+See [USER-GLOBAL-DELIVERY.md](docs/USER-GLOBAL-DELIVERY.md) for the operational
+mechanism and [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md)
+for its acceptance record.
 
 ## Repository Layout
 
@@ -68,6 +70,7 @@ See [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md).
 | --- | --- |
 | `packages/` | Future versioned ACT Skills for Scout packages. |
 | `scripts/` | OneDrive publisher and safe user-global bootstrap/removal scripts. |
+| `docs/USER-GLOBAL-DELIVERY.md` | User-global OneDrive delivery architecture and operations. |
 | `probes/local-folder/` | Harmless disposable package used to test local Scout discovery. |
 | `docs/USER-GLOBAL-DELIVERY-TEST.md` | OneDrive-backed delivery procedure and acceptance criteria. |
 | `docs/TEST-PLAN.md` | Required evidence and stop conditions for the probe. |
