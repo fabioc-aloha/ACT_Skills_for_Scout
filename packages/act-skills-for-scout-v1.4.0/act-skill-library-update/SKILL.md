@@ -14,7 +14,7 @@ description: Updates the current machine's linked ACT skills from the synced One
 3. Preview this exact command and the expected linked paths:
 
    ```powershell
-   & "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout\Install-ActSkillsForScout.ps1" -Apply
+   & "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout\Install-ActSkillsForScout.ps1" -Apply -Apply
    ```
 
    State that it may create only missing named junctions under

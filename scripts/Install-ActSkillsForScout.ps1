@@ -1,3 +1,5 @@
+# Publishes when requested, then installs the entire user-global ACT and Flint bundle.
+# The script is intentionally non-mutating until the caller supplies -Apply.
 [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
 param(
     [string]$LibraryRoot = $(if ($env:OneDrive) {
@@ -15,7 +17,7 @@ if (-not $Apply) {
     exit 0
 }
 
-$publisher = Join-Path $PSScriptRoot 'Publish-ActSkillsLibrary.ps1'
+$publisher = Join-Path $PSScriptRoot 'Publish-ActScoutBundleToOneDrive.ps1'
 if ($Publish) {
     if (-not (Test-Path -LiteralPath $publisher)) {
         throw '-Publish is available only from the ACT Skills for Scout source repository.'
@@ -134,6 +136,7 @@ while (Test-Path -LiteralPath $backupPath) {
     $suffix++
 }
 if ($PSCmdlet.ShouldProcess($McpConfigPath, "Add Flint MCP entry and create backup $backupPath")) {
+    # Preserve the prior host configuration and add only the reviewed entry.
     Copy-Item -LiteralPath $McpConfigPath -Destination $backupPath
     $configuration.servers | Add-Member -MemberType NoteProperty -Name 'flint' -Value $entry
     $json = $configuration | ConvertTo-Json -Depth 10

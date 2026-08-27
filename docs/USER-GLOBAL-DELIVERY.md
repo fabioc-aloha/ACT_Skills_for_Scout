@@ -92,9 +92,10 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 .\scripts\Install-ActSkillsForScout.ps1 -Publish -Apply
 ```
 
-`-Publish -Apply` updates the managed OneDrive library, creates or confirms the
-source machine's junctions, and registers Flint. Without `-Apply`, the script
-only previews the bundle operation.
+`-Publish -Apply` invokes
+`Publish-ActScoutBundleToOneDrive.ps1`, updates the managed OneDrive library,
+creates or confirms the source machine's junctions, and registers Flint.
+Without `-Apply`, the script only previews the bundle operation.
 
 ## Install on a Machine
 

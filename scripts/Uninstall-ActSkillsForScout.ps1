@@ -1,3 +1,5 @@
+# Removes the entire user-global ACT and Flint bundle only when -Apply is supplied.
+# Matching checks prevent this script from removing another tool's registration.
 [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'High')]
 param(
     [string]$LibraryRoot = $(if ($env:OneDrive) {
@@ -93,6 +95,7 @@ while (Test-Path -LiteralPath $backupPath) {
     $suffix++
 }
 if ($PSCmdlet.ShouldProcess($McpConfigPath, "Remove Flint MCP entry and create backup $backupPath")) {
+    # Keep a recovery copy before changing the shared Scout MCP configuration.
     Copy-Item -LiteralPath $McpConfigPath -Destination $backupPath
     [void]$configuration.servers.PSObject.Properties.Remove('flint')
     $json = $configuration | ConvertTo-Json -Depth 10

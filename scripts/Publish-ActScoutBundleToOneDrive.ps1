@@ -1,3 +1,5 @@
+# Copies the selected versioned package into the OneDrive distribution library.
+# The generated library manifest is a deployment receipt, not the source package manifest.
 [CmdletBinding()]
 param(
     [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v1.4.0'),
@@ -41,6 +43,8 @@ Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Install-ActSkillsForScout.ps1')
     -Destination (Join-Path $LibraryRoot 'Install-ActSkillsForScout.ps1') -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Uninstall-ActSkillsForScout.ps1') `
     -Destination (Join-Path $LibraryRoot 'Uninstall-ActSkillsForScout.ps1') -Force
+Copy-Item -LiteralPath $PSCommandPath `
+    -Destination (Join-Path $LibraryRoot 'Publish-ActScoutBundleToOneDrive.ps1') -Force
 foreach ($obsoleteScript in 'Install-FlintMcpForScout.ps1', 'Uninstall-FlintMcpForScout.ps1') {
     $obsoletePath = Join-Path $LibraryRoot $obsoleteScript
     if (Test-Path -LiteralPath $obsoletePath -PathType Leaf) {

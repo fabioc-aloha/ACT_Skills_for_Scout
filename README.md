@@ -91,20 +91,66 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 .\scripts\Install-ActSkillsForScout.ps1 -Publish -Apply
 ```
 
-After OneDrive synchronizes, each additional machine enables the same library
-with one command:
+On one Windows machine, this complete command publishes the ACT bundle to the
+user's OneDrive library, creates user-global junctions for all 26 skills under
+`%USERPROFILE%\.copilot\skills`, and registers the pinned Flint MCP server.
+Restart Scout after it completes. It requires OneDrive plus Node.js, npm, and
+`npx` to be available through the user's existing machine configuration.
+
+After OneDrive synchronizes, each additional machine uses this one command for
+both its first installation and every later synced update:
 
 ```powershell
 Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
 .\Install-ActSkillsForScout.ps1 -Apply
 ```
 
+It creates any missing user-global skill junctions, registers Flint, and leaves
+matching existing junctions intact. Restart Scout after it completes.
+
+## Update an Installed Bundle
+
+On the publishing machine, pull the new repository version, confirm that
+`scripts\Install-ActSkillsForScout.ps1` targets the new versioned package
+directory, then republish:
+
+```powershell
+git pull
+.\scripts\Install-ActSkillsForScout.ps1 -Publish -Apply
+```
+
+Existing user-global junctions continue to point at the refreshed OneDrive
+files. Restart Scout after publishing. On additional machines, wait for
+OneDrive synchronization and run the same combined install command from the
+synced library with `-Apply`.
+
+## Uninstall the Bundle
+
+From the synced OneDrive library, preview the complete removal:
+
+```powershell
+.\Uninstall-ActSkillsForScout.ps1
+```
+
+Then remove all ACT skill junctions and the reviewed Flint registration:
+
+```powershell
+.\Uninstall-ActSkillsForScout.ps1 -Apply -Confirm:$false
+```
+
+The script removes only junctions pointing to this library, refuses a differing
+Flint entry, and creates a timestamped configuration backup. It does not delete
+the OneDrive library or clear the local `npx` package cache. Restart Scout
+afterward.
+
 ## Repository Layout
 
 | Path | Purpose |
 | --- | --- |
 | `packages/` | Future versioned ACT Skills for Scout packages. |
-| `scripts/` | OneDrive publisher plus the combined ACT skill and Flint lifecycle scripts. |
+| `scripts/Publish-ActScoutBundleToOneDrive.ps1` | Publishes the selected ACT bundle to the OneDrive library. |
+| `scripts/Install-ActSkillsForScout.ps1` | Preview-first installation of the complete ACT skill and Flint bundle. |
+| `scripts/Uninstall-ActSkillsForScout.ps1` | Preview-first removal of the complete ACT skill and Flint bundle. |
 | `docs/USER-GLOBAL-DELIVERY.md` | User-global OneDrive delivery architecture and operations. |
 | `probes/local-folder/` | Harmless disposable package used to test local Scout discovery. |
 | `docs/USER-GLOBAL-DELIVERY-TEST.md` | OneDrive-backed delivery procedure and acceptance criteria. |
