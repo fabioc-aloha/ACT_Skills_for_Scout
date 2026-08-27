@@ -59,8 +59,8 @@ configuration, repository files, or Scout setting changes are required.
 On 2026-08-26, the v0.1.0 library replicated to a second machine through
 OneDrive and each machine showed all three user-global skill folders after the
 one-time bootstrap. v0.3.0 extends the workspace bootstrap skill with merge-safe
-GitHub and Azure DevOps scaffolding and requires its own source- and
-second-machine validation.
+GitHub and Azure DevOps scaffolding. Its source-machine publication and
+user-global junction completed on 2026-08-26; second-machine validation remains.
 
 See [USER-GLOBAL-DELIVERY.md](docs/USER-GLOBAL-DELIVERY.md) for the operational
 mechanism and [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md)

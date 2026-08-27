@@ -111,11 +111,17 @@ library must still synchronize to the second machine, where the installer must
 be rerun once to create its fourth junction. A fresh Scout conversation must
 then validate discovery and user-approved workspace bootstrap behavior.
 
-## v0.3.0 Pending Result
+## v0.3.0 Source-Machine Result
 
 Version 0.3.0 extends the workspace bootstrap skill with merge-safe GitHub and
-Azure DevOps templates. It must be published, installed on each machine, and
-validated in a fresh Scout conversation before it can be claimed as available.
+Azure DevOps templates. On 2026-08-26 it was published to the source machine's
+OneDrive library, whose manifest reported `0.3.0`; the global linked skill and
+canonical stylesheet matched the package source by SHA-256.
+
+The v0.3.0 library must still synchronize to the second machine, where the
+installer must be rerun once to refresh the existing skill junction. A fresh
+Scout conversation must then validate discovery and user-approved scaffold
+behavior.
 
 ## Removal
 
