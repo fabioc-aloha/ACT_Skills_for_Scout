@@ -16,3 +16,5 @@ probes/m-memory-*.json
 !packages/act-skills-for-scout-v1.2.0/act-vscode-workspace-bootstrap/references/templates/.vscode/**
 !packages/act-skills-for-scout-v1.3.0/act-vscode-workspace-bootstrap/references/templates/.vscode/
 !packages/act-skills-for-scout-v1.3.0/act-vscode-workspace-bootstrap/references/templates/.vscode/**
+!packages/act-skills-for-scout-v1.4.0/act-vscode-workspace-bootstrap/references/templates/.vscode/
+!packages/act-skills-for-scout-v1.4.0/act-vscode-workspace-bootstrap/references/templates/.vscode/**

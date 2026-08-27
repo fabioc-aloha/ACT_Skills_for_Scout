@@ -6,11 +6,12 @@ Validate a low-friction delivery path in which one versioned ACT skill package i
 published to the user's OneDrive library, then discovered by Scout on every
 machine without any repository- or workspace-specific setup.
 
-## v1.3.0 Pending Publication and Runtime Validation
+## v1.4.0 Pending Publication and Flint MCP Canary Validation
 
-The curated Scout-native v1.3.0 package is the current publisher default. It
-contains these 23 direct skill folders, but is pending source publication and
-runtime validation, including fresh-conversation and second-machine validation:
+The curated Scout-native v1.4.0 package is the current publisher default. It
+contains these 26 direct skill folders, but is pending source publication and
+Flint MCP canary validation, including fresh-conversation and second-machine
+validation:
 
 ```text
 act-constellation-curation
@@ -36,13 +37,17 @@ act-skill-inventory-report
 act-feasibility-spike
 act-browser-safety
 act-project-capability-authoring
+act-flint-readiness
+act-flint-chart
+act-flint-theme
 ```
 
-Before treating v1.3.0 as delivered, publish it from the source machine, verify
-the OneDrive manifest and all 23 folders, run the synced installer once on each
-target machine to create missing junctions, and invoke every skill in a fresh
-Scout conversation. The historical results below remain evidence for their
-respective earlier package versions, not proof of v1.3.0 discovery.
+Before treating v1.4.0 as delivered, publish it from the source machine, verify
+the OneDrive manifest and all 26 folders, run the synced installer once on each
+target machine to create missing junctions, invoke every skill in a fresh Scout
+conversation, and complete a host-specific Flint MCP canary. The historical
+results below remain evidence for their respective earlier package versions, not
+proof of v1.4.0 discovery.
 
 ## Boundaries
 
