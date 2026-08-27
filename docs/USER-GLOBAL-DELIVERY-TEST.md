@@ -127,9 +127,14 @@ behavior.
 
 Version 0.4.0 adds `act-skill-library-update`. On 2026-08-26 it was published
 to the source machine's OneDrive library and its user-global junction was
-created. It must still be manually linked once on each additional machine
-through the synced installer. After that, a fresh Scout conversation can
-validate its explicit-confirmation update flow.
+created. The synced installer then manually linked it once on a second machine.
+In a fresh Scout conversation there, the request `update skills` selected the
+updater, read the v0.4.0 manifest, previewed the exact installer command,
+requested confirmation, and preserved all five matching junctions.
+
+This passes the v0.4.0 in-app update flow after its one-time per-machine
+bootstrap. Future newly added updater skills still require the existing manual
+installer run once before Scout can invoke them.
 
 ## Removal
 

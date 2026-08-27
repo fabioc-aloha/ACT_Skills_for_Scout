@@ -130,6 +130,11 @@ there. The mechanism is independent of Scout's native custom-skill lifecycle,
 whose stale-state behavior makes it unsuitable as the installation source of
 truth.
 
+On 2026-08-26, the v0.4.0 updater was manually linked on a second machine and
+then successfully invoked in Scout by the request `update skills`. It read the
+v0.4.0 manifest, previewed the exact installer command, requested confirmation,
+and preserved all five matching junctions.
+
 Remaining validation is to invoke each skill in a new Scout conversation and to
 verify that a published update is visible through the existing junctions on the
 second machine. macOS support has not been evaluated.

@@ -60,7 +60,8 @@ On 2026-08-26, the v0.1.0 library replicated to a second machine through
 OneDrive and each machine showed all three user-global skill folders after the
 one-time bootstrap. v0.4.0 adds a user-confirmed in-app updater; it requires a
 one-time manual installation on each machine before it can handle later
-skill-library updates.
+skill-library updates. Its second-machine in-app update flow passed on
+2026-08-26.
 
 See [USER-GLOBAL-DELIVERY.md](docs/USER-GLOBAL-DELIVERY.md) for the operational
 mechanism and [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md)
