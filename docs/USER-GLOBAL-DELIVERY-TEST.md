@@ -97,6 +97,20 @@ This passes library propagation and per-machine bootstrap. It does not yet prove
 that a fresh Scout conversation invokes every installed skill, nor that a
 republished update arrives through already-created junctions.
 
+## v0.2.0 Source-Machine Result
+
+On 2026-08-26, v0.2.0 was published to the OneDrive library and created the
+fourth source-machine junction:
+
+```text
+act-vscode-workspace-bootstrap
+```
+
+The published manifest contains all four direct skill folders. The v0.2.0
+library must still synchronize to the second machine, where the installer must
+be rerun once to create its fourth junction. A fresh Scout conversation must
+then validate discovery and user-approved workspace bootstrap behavior.
+
 ## Removal
 
 From the synced OneDrive library, run:
