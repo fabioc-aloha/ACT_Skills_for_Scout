@@ -1,0 +1,6 @@
+{
+  "$comment": "Scout workspace settings remain portable and profile-neutral. This project starts without Alex ACT skill, prompt, agent, or instruction discovery paths.",
+  "markdown.styles": [
+    ".vscode/markdown-light.css"
+  ]
+}
