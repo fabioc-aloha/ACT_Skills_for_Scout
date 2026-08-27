@@ -1,0 +1,86 @@
+# User-Global OneDrive Delivery Test
+
+## Goal
+
+Validate a low-friction delivery path in which one versioned ACT skill package is
+published to the user's OneDrive library, then discovered by Scout on every
+machine without any repository- or workspace-specific setup.
+
+## Boundaries
+
+- The GitHub repository is the source of truth.
+- OneDrive distributes the published personal library; it is not a Git working
+  copy and contains no `.git` directory.
+- Each machine has one user-level bootstrap step to create named junctions under
+  `%USERPROFILE%\.copilot\skills`.
+- The bootstrap does not install skills into a repository, workspace, Scout's
+  custom-skill inventory, a plugin, or a marketplace.
+- Native Scout import and cloud sync are outside this delivery path.
+
+## Publish on One Machine
+
+From the cloned repository, publish the current package:
+
+```powershell
+.\scripts\Publish-ActSkillsLibrary.ps1
+```
+
+This creates the following OneDrive-synchronized library:
+
+```text
+%OneDrive%\ScoutSkills\ACT_Skills_for_Scout\
+  Install-ActSkillsForScout.ps1
+  Uninstall-ActSkillsForScout.ps1
+  library-manifest.json
+  skills\
+    act-constellation-curation\
+    act-critical-review\
+    act-session-closeout\
+```
+
+Use `-Force` only to update the direct skill folders already managed by this
+library. The publisher does not remove obsolete folders or junctions.
+
+## Bootstrap on Each Machine
+
+After OneDrive finishes synchronizing, open PowerShell in the synced library and
+run:
+
+```powershell
+.\Install-ActSkillsForScout.ps1
+```
+
+The bootstrap creates these named junctions only if no conflicting path exists:
+
+```text
+%USERPROFILE%\.copilot\skills\act-constellation-curation\
+%USERPROFILE%\.copilot\skills\act-critical-review\
+%USERPROFILE%\.copilot\skills\act-session-closeout\
+```
+
+Start a new Scout conversation and invoke each expected request from
+[`PACKAGE-IMPORT-TEST-2026-08-26.md`](PACKAGE-IMPORT-TEST-2026-08-26.md).
+
+## Acceptance Criteria
+
+1. Publishing creates a OneDrive library with all three direct skill folders and
+   the library manifest.
+2. The bootstrap creates only junctions under the user-global Scout skills root.
+3. A new Scout conversation discovers each installed skill from that root.
+4. A second machine receives the library through OneDrive, runs the bootstrap
+   once, and discovers the same skills without cloning this repository or
+   configuring any project.
+5. Updating a source package, republishing with `-Force`, and allowing OneDrive
+   to synchronize changes the files visible through existing junctions.
+
+## Removal
+
+From the synced OneDrive library, run:
+
+```powershell
+.\Uninstall-ActSkillsForScout.ps1
+```
+
+The removal script deletes only junctions whose target exactly matches this
+library. It never removes the OneDrive source folders or a conflicting existing
+skill path.

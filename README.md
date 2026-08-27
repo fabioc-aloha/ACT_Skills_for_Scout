@@ -1,15 +1,19 @@
 # ACT Skills for Scout
 
-Experimental package and compatibility testbed for delivering Artificial Critical
-Thinking skills to Microsoft Scout.
+User-global delivery testbed for Artificial Critical Thinking skills in Microsoft
+Scout.
 
 ## Status
 
-**Not publishable. Not a Plugin Mall package.**
+**Pilot delivery mechanism. Not a Plugin Mall package.**
 
-This repository exists to validate whether a portable Agent Skills package can be
-discovered by Scout through its documented local-skill folder, and to determine
-whether a future Copilot plugin/Mall distribution path can be Scout-compatible.
+This repository is the versioned source for portable Agent Skills folders. Its
+delivery testbed publishes a selected package to a OneDrive-synchronized personal
+library, then exposes every direct skill folder at Scout's user-global discovery
+root (`~/.copilot/skills`) through named Windows junctions.
+
+This design intentionally avoids per-repository and per-workspace installation.
+Every Scout conversation on an installed machine can discover the same skills.
 
 ### Current Evidence
 
@@ -21,29 +25,47 @@ intercepted by an unexpected ACT bridge and is therefore inconclusive. Updates,
 rollback, UI management, macOS, cross-device behavior, Copilot plugins, and
 Plugin Mall remain unvalidated.
 
-### Cloud-Sync Result
+### Native Scout Lifecycle Result
 
 Scout-managed skill lifecycle propagation passed between two instances signed
 into the same Microsoft 365 user. The probe arrived disabled on the second
 instance, ran after the user enabled it in the Skills UI, and disappeared from
 both instances after source deletion. This does not prove that historical skills
 deleted elsewhere are reconciled automatically; the second instance later showed
-many retained disabled ACT skills. See
-[CLOUD-SYNC-REPORT-2026-08-26.md](docs/CLOUD-SYNC-REPORT-2026-08-26.md).
+many retained disabled ACT skills. Native Scout import and sync are therefore
+optional convenience paths, not the source of truth for installation, updates,
+or cleanup. See [CLOUD-SYNC-REPORT-2026-08-26.md](docs/CLOUD-SYNC-REPORT-2026-08-26.md).
 
-### Current Test Baseline
+### User-Global Delivery Target
 
-Both Scout instances now have the same Scout-visible baseline: no custom skills,
-ten bundled skills, no automations, and heartbeat disabled. The reset scope and
-retained plugin-source boundary are recorded in
-[TWO-INSTANCE-RESET-2026-08-26.md](docs/TWO-INSTANCE-RESET-2026-08-26.md).
+```text
+GitHub repository (versioned source)
+        |
+        v
+OneDrive\ScoutSkills\ACT_Skills_for_Scout\skills\
+        |
+        v
+%USERPROFILE%\.copilot\skills\<skill-name>\  (named junctions)
+        |
+        v
+All Scout conversations on that machine
+```
+
+The publishing machine updates the OneDrive library from a chosen versioned
+package. OneDrive propagates that library to the user's other machines. Each
+machine runs the local bootstrap once to add user-level junctions. No project
+configuration, repository files, or Scout setting changes are required.
+
+See [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md).
 
 ## Repository Layout
 
 | Path | Purpose |
 | --- | --- |
 | `packages/` | Future versioned ACT Skills for Scout packages. |
+| `scripts/` | OneDrive publisher and safe user-global bootstrap/removal scripts. |
 | `probes/local-folder/` | Harmless disposable package used to test local Scout discovery. |
+| `docs/USER-GLOBAL-DELIVERY-TEST.md` | OneDrive-backed delivery procedure and acceptance criteria. |
 | `docs/TEST-PLAN.md` | Required evidence and stop conditions for the probe. |
 | `docs/PROBE-REPORT-2026-08-26.md` | Windows discovery result and remaining validation work. |
 | `docs/CLOUD-SYNC-REPORT-2026-08-26.md` | Source-to-second-instance creation, activation, and deletion result. |
@@ -55,8 +77,10 @@ retained plugin-source boundary are recorded in
   `loadCopilotCliSkills`, or modify Scout settings from this repository.
 - The first probe contains no scripts, references, assets, MCP configuration,
   credentials, external calls, or filesystem writes.
-- The probe must be removed after each test. A folder listing is not evidence of
-  Scout discovery; validate in a new Scout conversation.
+- The bootstrap only creates named junctions for direct skill folders. It never
+  writes into a repository or workspace.
+- A folder listing is not evidence of Scout discovery; validate in a new Scout
+  conversation.
 - A future production package must remain an Agent Skills-compatible folder with
   `SKILL.md` as its portable contract.
 
