@@ -1,8 +1,8 @@
 # ACT Skills for Scout v1.0.0
 
 Curated Scout-native package for user-global Scout discovery through the
-OneDrive-backed ACT skill library. It is pending source-machine publication and
-fresh-conversation validation.
+OneDrive-backed ACT skill library. It is published on the source machine and
+pending fresh-conversation and second-machine validation.
 
 ## Contents
 
@@ -48,9 +48,9 @@ target workspace only after the user explicitly approves a reviewed merge plan.
 ## Version History
 
 `v1.0.0` expands the pilot into an 18-skill curated Scout-native payload. It
-retains the v0.4.0 delivery capabilities and is pending publication and
-fresh-conversation validation. `v0.4.0` adds `act-skill-library-update` for
-user-confirmed in-app updates.
+retains the v0.4.0 delivery capabilities and is published on the source machine.
+Fresh-conversation and second-machine validation remain pending. `v0.4.0` adds
+`act-skill-library-update` for user-confirmed in-app updates.
 `v0.3.0` extends `act-vscode-workspace-bootstrap` with merge-safe GitHub and
 Azure DevOps templates. `v0.2.0` adds the initial `.vscode` bootstrap skill, and
 v0.1.0 is retained as the initial three-skill delivery-test artifact.

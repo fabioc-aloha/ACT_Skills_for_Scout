@@ -31,10 +31,12 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.0.0 Library to Publish
+## v1.0.0 Published Library
 
-`v1.0.0` is the publisher default, but as of 2026-08-26 it is pending
-source-machine publication and fresh-conversation validation. The following is
+`v1.0.0` is the publisher default. On 2026-08-26, the source machine published
+its 18 direct skill folders to OneDrive and created or confirmed 18 matching
+user-global junctions. Fresh-conversation and second-machine validation remain
+pending. The following is
 the expected library shape after that publication:
 
 The standard library path is:
@@ -152,8 +154,7 @@ then successfully invoked in Scout by the request `update skills`. It read the
 v0.4.0 manifest, previewed the exact installer command, requested confirmation,
 and preserved all five matching junctions.
 
-v1.0.0 remains pending source-machine publication, a manual installer run on
-each target machine for its new junctions, and fresh-conversation validation of
-all 18 direct skills. It must also verify that a published update is visible
-through existing junctions on the second machine. macOS support has not been
-evaluated.
+v1.0.0 remains pending a manual installer run on each target machine for its new
+junctions and fresh-conversation validation of all 18 direct skills. It must
+also verify that a published update is visible through existing junctions on the
+second machine. macOS support has not been evaluated.

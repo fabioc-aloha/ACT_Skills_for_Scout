@@ -5,8 +5,9 @@ Scout.
 
 ## Status
 
-**Curated Scout-native v1.0.0 package; publication and fresh-conversation
-validation are pending. Not a Plugin Mall package.**
+**Curated Scout-native v1.0.0 package published on the source machine;
+fresh-conversation and second-machine validation are pending. Not a Plugin Mall
+package.**
 
 This repository is the versioned source for portable Agent Skills folders. Its
 delivery testbed publishes a selected package to a OneDrive-synchronized personal
@@ -57,13 +58,12 @@ package. OneDrive propagates that library to the user's other machines. Each
 machine runs the local bootstrap once to add user-level junctions. No project
 configuration, repository files, or Scout setting changes are required.
 
-The v1.0.0 package contains 18 direct skills and becomes the publisher default,
-but it has **not** yet been published from the source machine or validated in a
-fresh Scout conversation. The validated delivery findings below remain
-historical: on 2026-08-26, the v0.1.0 library replicated to a second machine
-through OneDrive and each machine showed all three user-global skill folders
-after the one-time bootstrap. v0.4.0 added a user-confirmed in-app updater; its
-second-machine in-app update flow passed on 2026-08-26.
+The v1.0.0 package contains 18 direct skills and is the publisher default. On
+2026-08-26 it was published to the source machine's OneDrive library and all 18
+user-global junctions were created or confirmed. Fresh-conversation and
+second-machine validation remain pending. The validated earlier findings remain
+historical: v0.1.0 replicated through OneDrive to a second machine, and the
+v0.4.0 in-app update flow passed there.
 
 See the [v1.0.0 package inventory](packages/act-skills-for-scout-v1.0.0/README.md)
 and [provenance](packages/act-skills-for-scout-v1.0.0/PROVENANCE.md) for the
@@ -75,8 +75,7 @@ for its acceptance record.
 
 ## Quick Start
 
-After reviewing the pending v1.0.0 package, publish it on the source machine
-and enable it for that user with one command:
+To republish v1.0.0 on the source machine and enable it for that user, run:
 
 ```powershell
 Set-Location C:\Development\ACT_Skills_for_Scout
