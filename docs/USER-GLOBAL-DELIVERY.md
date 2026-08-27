@@ -31,7 +31,11 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## Published Library
+## v1.0.0 Library to Publish
+
+`v1.0.0` is the publisher default, but as of 2026-08-26 it is pending
+source-machine publication and fresh-conversation validation. The following is
+the expected library shape after that publication:
 
 The standard library path is:
 
@@ -51,6 +55,19 @@ skills\
   act-session-closeout\
   act-vscode-workspace-bootstrap\
   act-skill-library-update\
+  act-critical-thinking\
+  act-problem-framing\
+  act-implementation-planning\
+  act-systematic-debugging\
+  act-test-driven-development\
+  act-security-hardening\
+  act-git-safety\
+  act-documentation-hygiene\
+  act-writing-craft\
+  act-status-reporting\
+  act-responsible-ai-review\
+  act-library-health-audit\
+  act-content-currency-audit\
 ```
 
 Each folder directly beneath `skills\` must contain a `SKILL.md`. This direct
@@ -120,21 +137,23 @@ library itself.
 
 ## Scope and Evidence
 
-This mechanism has passed OneDrive propagation and one-time bootstrap across two
-Windows machines for the three v0.1.0 skills. The v0.3.0 package extends
-`act-vscode-workspace-bootstrap` with merge-safe GitHub and Azure DevOps
-scaffolding; v0.4.0 adds `act-skill-library-update`, which lets Scout invoke the
-synced-library installer after explicit user confirmation. Each new updater
-release still needs one manual installer run per machine before it can be invoked
-there. The mechanism is independent of Scout's native custom-skill lifecycle,
-whose stale-state behavior makes it unsuitable as the installation source of
-truth.
+Historical delivery evidence: this mechanism passed OneDrive propagation and
+one-time bootstrap across two Windows machines for the three v0.1.0 skills.
+v0.3.0 extended `act-vscode-workspace-bootstrap` with merge-safe GitHub and
+Azure DevOps scaffolding; v0.4.0 added `act-skill-library-update`, which lets
+Scout invoke the synced-library installer after explicit user confirmation.
+Each newly added skill still needs one manual installer run per machine to
+create its junction. The mechanism is independent of Scout's native
+custom-skill lifecycle, whose stale-state behavior makes it unsuitable as the
+installation source of truth.
 
 On 2026-08-26, the v0.4.0 updater was manually linked on a second machine and
 then successfully invoked in Scout by the request `update skills`. It read the
 v0.4.0 manifest, previewed the exact installer command, requested confirmation,
 and preserved all five matching junctions.
 
-Remaining validation is to invoke each skill in a new Scout conversation and to
-verify that a published update is visible through the existing junctions on the
-second machine. macOS support has not been evaluated.
+v1.0.0 remains pending source-machine publication, a manual installer run on
+each target machine for its new junctions, and fresh-conversation validation of
+all 18 direct skills. It must also verify that a published update is visible
+through existing junctions on the second machine. macOS support has not been
+evaluated.

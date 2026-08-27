@@ -5,7 +5,8 @@ Scout.
 
 ## Status
 
-**Pilot delivery mechanism. Not a Plugin Mall package.**
+**Curated Scout-native v1.0.0 package; publication and fresh-conversation
+validation are pending. Not a Plugin Mall package.**
 
 This repository is the versioned source for portable Agent Skills folders. Its
 delivery testbed publishes a selected package to a OneDrive-synchronized personal
@@ -56,12 +57,17 @@ package. OneDrive propagates that library to the user's other machines. Each
 machine runs the local bootstrap once to add user-level junctions. No project
 configuration, repository files, or Scout setting changes are required.
 
-On 2026-08-26, the v0.1.0 library replicated to a second machine through
-OneDrive and each machine showed all three user-global skill folders after the
-one-time bootstrap. v0.4.0 adds a user-confirmed in-app updater; it requires a
-one-time manual installation on each machine before it can handle later
-skill-library updates. Its second-machine in-app update flow passed on
-2026-08-26.
+The v1.0.0 package contains 18 direct skills and becomes the publisher default,
+but it has **not** yet been published from the source machine or validated in a
+fresh Scout conversation. The validated delivery findings below remain
+historical: on 2026-08-26, the v0.1.0 library replicated to a second machine
+through OneDrive and each machine showed all three user-global skill folders
+after the one-time bootstrap. v0.4.0 added a user-confirmed in-app updater; its
+second-machine in-app update flow passed on 2026-08-26.
+
+See the [v1.0.0 package inventory](packages/act-skills-for-scout-v1.0.0/README.md)
+and [provenance](packages/act-skills-for-scout-v1.0.0/PROVENANCE.md) for the
+full payload and its source-derived adaptations.
 
 See [USER-GLOBAL-DELIVERY.md](docs/USER-GLOBAL-DELIVERY.md) for the operational
 mechanism and [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md)
@@ -69,8 +75,8 @@ for its acceptance record.
 
 ## Quick Start
 
-On the source machine, publish the current package and enable it for that user
-with one command:
+After reviewing the pending v1.0.0 package, publish it on the source machine
+and enable it for that user with one command:
 
 ```powershell
 Set-Location C:\Development\ACT_Skills_for_Scout
@@ -111,6 +117,8 @@ Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
   conversation.
 - A future production package must remain an Agent Skills-compatible folder with
   `SKILL.md` as its portable contract.
+- v1.0.0 source-derived guidance is curated rather than copied, and excludes
+  plugin, runtime, MCP, credential, and tool-bound artifacts.
 
 See [the test plan](docs/TEST-PLAN.md) before any test and
 [uninstall instructions](docs/UNINSTALL.md) before installing anything.

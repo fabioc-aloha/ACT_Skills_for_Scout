@@ -6,6 +6,39 @@ Validate a low-friction delivery path in which one versioned ACT skill package i
 published to the user's OneDrive library, then discovered by Scout on every
 machine without any repository- or workspace-specific setup.
 
+## v1.0.0 Pending Validation
+
+The curated Scout-native v1.0.0 package is the current publisher default. It
+contains these 18 direct skill folders, but is pending source-machine
+publication and fresh-conversation validation:
+
+```text
+act-constellation-curation
+act-critical-review
+act-session-closeout
+act-vscode-workspace-bootstrap
+act-skill-library-update
+act-critical-thinking
+act-problem-framing
+act-implementation-planning
+act-systematic-debugging
+act-test-driven-development
+act-security-hardening
+act-git-safety
+act-documentation-hygiene
+act-writing-craft
+act-status-reporting
+act-responsible-ai-review
+act-library-health-audit
+act-content-currency-audit
+```
+
+Before treating v1.0.0 as delivered, publish it from the source machine, verify
+the OneDrive manifest and all 18 folders, run the synced installer once on each
+target machine to create missing junctions, and invoke every skill in a fresh
+Scout conversation. The historical results below remain evidence for their
+respective earlier package versions, not proof of v1.0.0 discovery.
+
 ## Boundaries
 
 - The GitHub repository is the source of truth.
@@ -17,7 +50,7 @@ machine without any repository- or workspace-specific setup.
   custom-skill inventory, a plugin, or a marketplace.
 - Native Scout import and cloud sync are outside this delivery path.
 
-## Original v0.1.0 Test
+## Historical v0.1.0 Test
 
 The procedure and result below are the original three-skill v0.1.0 delivery
 test. The v0.3.0 workspace-bootstrap addition requires a new publication and
