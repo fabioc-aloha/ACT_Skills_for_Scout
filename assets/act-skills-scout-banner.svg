@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">ACT Skills for Scout</title>
+  <desc id="desc">User-global skills and Flint charting for Microsoft Scout.</desc>
+  <defs>
+    <linearGradient id="accent" x1="0" x2="1">
+      <stop stop-color="#10b981"/>
+      <stop offset=".5" stop-color="#14b8a6"/>
+      <stop offset="1" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="320" fill="#0f172a"/>
+  <rect width="8" height="320" fill="url(#accent)"/>
+  <path d="M72 76h260" stroke="url(#accent)" stroke-width="4"/>
+  <text x="72" y="62" fill="#10b981" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" letter-spacing="2">ACT FOR MICROSOFT SCOUT</text>
+  <text x="72" y="158" fill="#f1f5f9" font-family="Segoe UI,Arial,sans-serif" font-size="56" font-weight="700">ACT Skills for Scout</text>
+  <text x="72" y="204" fill="#94a3b8" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="600">User-global critical-thinking skills and Flint charting.</text>
+  <circle cx="1040" cy="126" r="66" fill="none" stroke="#10b981" stroke-width="9"/>
+  <path d="M995 126h90M1040 81v90" stroke="#06b6d4" stroke-width="9"/>
+  <text x="880" y="260" fill="#f1f5f9" opacity=".12" font-family="Segoe UI,Arial,sans-serif" font-size="92" font-weight="800">SCOUT</text>
+</svg>
