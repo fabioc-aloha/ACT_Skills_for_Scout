@@ -28,7 +28,7 @@ From the cloned repository, publish the current package:
 This creates the following OneDrive-synchronized library:
 
 ```text
-%OneDrive%\ScoutSkills\ACT_Skills_for_Scout\
+%OneDrive%\Documents\ScoutSkills\ACT_Skills_for_Scout\
   Install-ActSkillsForScout.ps1
   Uninstall-ActSkillsForScout.ps1
   library-manifest.json

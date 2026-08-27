@@ -42,7 +42,7 @@ or cleanup. See [CLOUD-SYNC-REPORT-2026-08-26.md](docs/CLOUD-SYNC-REPORT-2026-08
 GitHub repository (versioned source)
         |
         v
-OneDrive\ScoutSkills\ACT_Skills_for_Scout\skills\
+OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout\skills\
         |
         v
 %USERPROFILE%\.copilot\skills\<skill-name>\  (named junctions)

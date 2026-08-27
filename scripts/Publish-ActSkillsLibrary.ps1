@@ -2,7 +2,7 @@
 param(
     [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v0.1.0'),
     [string]$LibraryRoot = $(if ($env:OneDrive) {
-        Join-Path $env:OneDrive 'ScoutSkills\ACT_Skills_for_Scout'
+        Join-Path $env:OneDrive 'Documents\ScoutSkills\ACT_Skills_for_Scout'
     }),
     [switch]$Force
 )
