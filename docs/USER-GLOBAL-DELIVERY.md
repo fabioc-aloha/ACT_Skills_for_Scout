@@ -31,13 +31,11 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.0.0 Published Library
+## v1.2.0 Pending Publication
 
-`v1.0.0` is the publisher default. On 2026-08-26, the source machine published
-its 18 direct skill folders to OneDrive and created or confirmed 18 matching
-user-global junctions. Fresh-conversation and second-machine validation remain
-pending. The following is
-the expected library shape after that publication:
+`v1.2.0` is the publisher default. Its 22 direct skill folders are pending
+source publication, fresh-conversation validation, and second-machine
+validation. The following is the expected library shape after publication:
 
 The standard library path is:
 
@@ -154,10 +152,10 @@ then successfully invoked in Scout by the request `update skills`. It read the
 v0.4.0 manifest, previewed the exact installer command, requested confirmation,
 and preserved all five matching junctions.
 
-v1.1.1 is the current publisher default and hardens
-`act-skill-inventory-report` for all host-reported scopes. On 2026-08-26, its
-OneDrive library was published and all 19 source-machine junctions were
-confirmed. It remains pending manual installation on each target machine for its
-updated instructions and fresh-conversation validation. It must also verify that
-a published update is visible through existing junctions on the second machine.
-macOS support has not been evaluated.
+The historical v1.1.1 publication hardened `act-skill-inventory-report` for
+all host-reported scopes. On 2026-08-26, its OneDrive library was published
+and all 19 source-machine junctions were confirmed. That record does not
+validate v1.2.0. The v1.2.0 package is pending source publication, manual
+installation on each target machine, fresh-conversation validation, and
+verification that a published update is visible through existing junctions on
+the second machine. macOS support has not been evaluated.
