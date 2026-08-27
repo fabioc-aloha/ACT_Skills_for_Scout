@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v0.2.0'),
+    [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v0.3.0'),
     [string]$LibraryRoot = $(if ($env:OneDrive) {
         Join-Path $env:OneDrive 'Documents\ScoutSkills\ACT_Skills_for_Scout'
     }),

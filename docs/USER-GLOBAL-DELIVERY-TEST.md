@@ -20,7 +20,7 @@ machine without any repository- or workspace-specific setup.
 ## Original v0.1.0 Test
 
 The procedure and result below are the original three-skill v0.1.0 delivery
-test. The v0.2.0 workspace-bootstrap addition requires a new publication and
+test. The v0.3.0 workspace-bootstrap addition requires a new publication and
 fresh-conversation invocation record.
 
 ## Publish on One Machine
@@ -110,6 +110,12 @@ The published manifest contains all four direct skill folders. The v0.2.0
 library must still synchronize to the second machine, where the installer must
 be rerun once to create its fourth junction. A fresh Scout conversation must
 then validate discovery and user-approved workspace bootstrap behavior.
+
+## v0.3.0 Pending Result
+
+Version 0.3.0 extends the workspace bootstrap skill with merge-safe GitHub and
+Azure DevOps templates. It must be published, installed on each machine, and
+validated in a fresh Scout conversation before it can be claimed as available.
 
 ## Removal
 
