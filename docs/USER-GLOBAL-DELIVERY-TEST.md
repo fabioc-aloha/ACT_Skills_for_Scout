@@ -8,6 +8,10 @@ machine without any repository- or workspace-specific setup.
 
 ## v1.4.0 Source-Machine Publication and Flint MCP Canary
 
+Commands in the historical v0.1.0-v1.1.1 records below predate the combined
+preview-first bundle lifecycle. Current operational commands require `-Apply`
+as documented in `USER-GLOBAL-DELIVERY.md`.
+
 The curated Scout-native v1.4.0 package is the current publisher default. It
 contains these 26 direct skill folders and is published to the source user's
 OneDrive library. Its Flint MCP canary passed; fresh-conversation coverage for

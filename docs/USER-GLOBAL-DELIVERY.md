@@ -12,12 +12,12 @@ machine uses the same user-global skills.
 GitHub repository
   Versioned source package
         |
-        | Install-ActSkillsForScout.ps1 -Publish
+        | Install-ActSkillsForScout.ps1 -Publish -Apply
         v
 OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout\
   Synced personal library
         |
-        | Install-ActSkillsForScout.ps1 (once per machine)
+        | Install-ActSkillsForScout.ps1 -Apply (once per machine)
         v
 %USERPROFILE%\.copilot\skills\
   Named Windows junctions to each direct skill folder
@@ -153,7 +153,7 @@ run it explicitly:
 ## Updates
 
 1. Update and commit the source package in the GitHub repository.
-2. Run `Install-ActSkillsForScout.ps1 -Publish` on the publishing machine.
+2. Run `Install-ActSkillsForScout.ps1 -Publish -Apply` on the publishing machine.
 3. Wait for OneDrive synchronization to complete on the other machines.
 4. Start a new Scout conversation where necessary.
 
