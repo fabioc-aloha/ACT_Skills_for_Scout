@@ -154,7 +154,9 @@ then successfully invoked in Scout by the request `update skills`. It read the
 v0.4.0 manifest, previewed the exact installer command, requested confirmation,
 and preserved all five matching junctions.
 
-v1.0.0 remains pending a manual installer run on each target machine for its new
-junctions and fresh-conversation validation of all 18 direct skills. It must
-also verify that a published update is visible through existing junctions on the
-second machine. macOS support has not been evaluated.
+v1.1.0 is the current publisher default and adds
+`act-skill-inventory-report`. It remains pending source-machine publication,
+manual installation on each target machine for its new junction, and
+fresh-conversation validation. It must also verify that a published update is
+visible through existing junctions on the second machine. macOS support has not
+been evaluated.

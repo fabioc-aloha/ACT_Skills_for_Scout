@@ -169,6 +169,13 @@ This passes the v0.4.0 in-app update flow after its one-time per-machine
 bootstrap. Future newly added updater skills still require the existing manual
 installer run once before Scout can invoke them.
 
+## v1.1.0 Pending Validation
+
+Version 1.1.0 adds `act-skill-inventory-report`, which is read-only and reports
+only the host inventory returned by `m_list_skills`. It must be published,
+manually linked once on each machine, and validated in a fresh Scout conversation
+before it can be claimed as available.
+
 ## Removal
 
 From the synced OneDrive library, run:
