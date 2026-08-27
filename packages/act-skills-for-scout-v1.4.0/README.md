@@ -1,9 +1,9 @@
 # ACT Skills for Scout v1.4.0
 
 Curated Scout-native package for user-global Scout discovery through the
-OneDrive-backed ACT skill library. It is pending source publication and Flint
-MCP canary validation, including fresh-conversation and second-machine
-validation.
+OneDrive-backed ACT skill library. It is published to the source user's library
+and its Flint MCP canary passed; fresh-conversation coverage for all skills and
+second-machine validation remain pending.
 
 ## Contents
 
@@ -48,11 +48,11 @@ Each machine exposes its direct skill folders through named junctions under
 `%USERPROFILE%\.copilot\skills\`. See
 [`../../docs/USER-GLOBAL-DELIVERY.md`](../../docs/USER-GLOBAL-DELIVERY.md).
 
-The direct skill payload has no scripts, credentials, MCP configuration, or
-runtime installation artifact. The package includes one non-mutating readiness
-preview under `scripts\` for package tooling only; it is not published as a
-skill payload. Flint remains MCP-gated and does not assume a Scout
-configuration location. See
+The direct skill payload has no scripts, credentials, or runtime installation
+artifact. The published library root includes a preview-first installer and
+rollback script for the reviewed Flint command server; neither script is part
+of a direct skill payload and both require explicit `-Apply`. Flint remains
+MCP-gated. See
 [`docs/FLINT-MCP-0.5.1-CAPABILITY.md`](docs/FLINT-MCP-0.5.1-CAPABILITY.md).
 Its source-derived content is adapted as portable guidance; see
 [`PROVENANCE.md`](PROVENANCE.md).
@@ -63,8 +63,10 @@ target workspace only after the user explicitly approves a reviewed merge plan.
 
 `v1.4.0` adds the MCP-gated `act-flint-readiness`, `act-flint-chart`, and
 `act-flint-theme` skills plus a version-pinned Flint capability document and
-non-mutating readiness preview. It is pending source publication and canary
-validation. `v1.3.0` adds `act-meditation-continuity`, an approval-first Scout-native
+non-mutating readiness preview. Source-machine publication, all 26 local
+junctions, and the Flint canary passed on 2026-08-27; fresh-conversation
+coverage for all skills and second-machine validation remain pending. `v1.3.0`
+adds `act-meditation-continuity`, an approval-first Scout-native
 continuity practice adapted from meditation and session-closeout guidance; it is
 pending source publication and runtime validation. `v1.2.0` adds portable
 feasibility-spike, browser-safety, and project-capability-authoring guidance. `v1.1.1` hardens `act-skill-inventory-report` with

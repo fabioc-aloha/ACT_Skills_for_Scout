@@ -5,14 +5,21 @@ Scout.
 
 ## Status
 
-**Curated Scout-native v1.4.0 package pending source publication and Flint MCP
-canary validation, including fresh-conversation and second-machine validation. Not a Plugin Mall
-package.**
+**Curated Scout-native v1.4.0 package is published to the source user's OneDrive
+library with 26 verified local junctions. The Flint MCP canary passed on that
+machine; fresh-conversation coverage for all skills and second-machine
+validation remain pending. Not a Plugin Mall package.**
+
+The published library uses one install and one uninstall script. Both default
+to preview; `-Apply` installs or removes the entire ACT skill-and-Flint bundle.
 
 This repository is the versioned source for portable Agent Skills folders. Its
 delivery testbed publishes a selected package to a OneDrive-synchronized personal
 library, then exposes every direct skill folder at Scout's user-global discovery
 root (`~/.copilot/skills`) through named Windows junctions.
+
+Flint registration is part of the opt-in, preview-first bundle lifecycle; the
+direct skill payload itself contains no executable configuration.
 
 This design intentionally avoids per-repository and per-workspace installation.
 Every Scout conversation on an installed machine can discover the same skills.
@@ -59,10 +66,12 @@ machine runs the local bootstrap once to add user-level junctions. No project
 configuration, repository files, or Scout setting changes are required.
 
 The v1.4.0 package contains 26 direct skills and is the publisher default. It
-is pending source publication and Flint MCP canary validation, including
-fresh-conversation and second-machine validation. The historical v1.1.1 source-machine publication
-and its 19 confirmed junctions remain recorded below and in the delivery
-documentation.
+is published to the source user's OneDrive library, with all 26 source-machine
+junctions verified. Its Flint MCP canary passed against
+`flint-chart-mcp@0.5.1`; fresh-conversation coverage for all skills and
+second-machine validation remain pending. The historical v1.1.1 source-machine
+publication and its 19 confirmed junctions remain recorded below and in the
+delivery documentation.
 
 See the [v1.4.0 package inventory](packages/act-skills-for-scout-v1.4.0/README.md),
 [provenance](packages/act-skills-for-scout-v1.4.0/PROVENANCE.md), and
@@ -79,7 +88,7 @@ To publish v1.4.0 on the source machine and enable it for that user, run:
 
 ```powershell
 Set-Location C:\Development\ACT_Skills_for_Scout
-.\scripts\Install-ActSkillsForScout.ps1 -Publish
+.\scripts\Install-ActSkillsForScout.ps1 -Publish -Apply
 ```
 
 After OneDrive synchronizes, each additional machine enables the same library
@@ -87,7 +96,7 @@ with one command:
 
 ```powershell
 Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
-.\Install-ActSkillsForScout.ps1
+.\Install-ActSkillsForScout.ps1 -Apply
 ```
 
 ## Repository Layout
@@ -95,7 +104,7 @@ Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
 | Path | Purpose |
 | --- | --- |
 | `packages/` | Future versioned ACT Skills for Scout packages. |
-| `scripts/` | OneDrive publisher and safe user-global bootstrap/removal scripts. |
+| `scripts/` | OneDrive publisher plus the combined ACT skill and Flint lifecycle scripts. |
 | `docs/USER-GLOBAL-DELIVERY.md` | User-global OneDrive delivery architecture and operations. |
 | `probes/local-folder/` | Harmless disposable package used to test local Scout discovery. |
 | `docs/USER-GLOBAL-DELIVERY-TEST.md` | OneDrive-backed delivery procedure and acceptance criteria. |
@@ -106,8 +115,9 @@ Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
 
 ## Safety Rules
 
-- Do not install a Copilot plugin, register a marketplace, enable
-  `loadCopilotCliSkills`, or modify Scout settings from this repository.
+- Do not install a Copilot plugin, register a marketplace, or enable
+  `loadCopilotCliSkills` from this repository. The reviewed bundle installer is
+  the only Scout configuration path and requires explicit `-Apply`.
 - The first probe contains no scripts, references, assets, MCP configuration,
   credentials, external calls, or filesystem writes.
 - The bootstrap only creates named junctions for direct skill folders. It never

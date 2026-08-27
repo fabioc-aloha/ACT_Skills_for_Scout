@@ -6,12 +6,12 @@ Validate a low-friction delivery path in which one versioned ACT skill package i
 published to the user's OneDrive library, then discovered by Scout on every
 machine without any repository- or workspace-specific setup.
 
-## v1.4.0 Pending Publication and Flint MCP Canary Validation
+## v1.4.0 Source-Machine Publication and Flint MCP Canary
 
 The curated Scout-native v1.4.0 package is the current publisher default. It
-contains these 26 direct skill folders, but is pending source publication and
-Flint MCP canary validation, including fresh-conversation and second-machine
-validation:
+contains these 26 direct skill folders and is published to the source user's
+OneDrive library. Its Flint MCP canary passed; fresh-conversation coverage for
+all skills and second-machine validation remain pending:
 
 ```text
 act-constellation-curation
@@ -197,6 +197,32 @@ On 2026-08-26, it was published to the source OneDrive library, whose manifest
 reported `1.1.1`, and all 19 source-machine junctions were confirmed. It must
 still be validated against the host inventory on both machines in fresh Scout
 conversations.
+
+## v1.4.0 Source-Machine Result
+
+On 2026-08-27, the v1.4.0 OneDrive library manifest reported 26 skill folders,
+and each published `SKILL.md` matched its source package by SHA-256. The
+source-machine bootstrap confirmed all 26 user-global junctions already pointed
+to the published library.
+
+The Flint canary passed in the active Scout host against
+`flint-chart-mcp@0.5.1`: all six reviewed tools were exposed,
+`list_chart_types` returned the Vega-Lite, ECharts, and Chart.js catalogs, and
+a Vega-Lite bar chart validated without warnings and rendered successfully.
+Local file references were disabled in the registered server configuration.
+
+This passes source-machine publication, local link integrity, and the
+host-specific Flint canary. It does not establish fresh-conversation discovery
+for every v1.4.0 skill, second-machine propagation of v1.4.0, or a
+cross-platform delivery claim.
+
+On 2026-08-27, the published library was extended with
+`Install-ActSkillsForScout.ps1` and `Uninstall-ActSkillsForScout.ps1`. The
+source-machine copies matched the OneDrive library by SHA-256. An isolated
+configuration test verified preview, reviewed-entry registration, safe
+rollback, separate timestamped backups for consecutive writes, and refusal to
+replace a differing `flint` entry. It did not modify the active Scout
+configuration because that entry already matched the reviewed registration.
 
 ## Removal
 

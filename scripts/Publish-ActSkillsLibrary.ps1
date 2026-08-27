@@ -41,6 +41,13 @@ Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Install-ActSkillsForScout.ps1')
     -Destination (Join-Path $LibraryRoot 'Install-ActSkillsForScout.ps1') -Force
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'Uninstall-ActSkillsForScout.ps1') `
     -Destination (Join-Path $LibraryRoot 'Uninstall-ActSkillsForScout.ps1') -Force
+foreach ($obsoleteScript in 'Install-FlintMcpForScout.ps1', 'Uninstall-FlintMcpForScout.ps1') {
+    $obsoletePath = Join-Path $LibraryRoot $obsoleteScript
+    if (Test-Path -LiteralPath $obsoletePath -PathType Leaf) {
+        Remove-Item -LiteralPath $obsoletePath -Force
+        Write-Output "Removed obsolete library script $obsoleteScript."
+    }
+}
 
 $packageManifest = Get-Content -LiteralPath (Join-Path $packagePath 'manifest.json') -Raw |
     ConvertFrom-Json

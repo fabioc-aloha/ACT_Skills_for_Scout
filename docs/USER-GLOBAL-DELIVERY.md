@@ -31,12 +31,12 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.4.0 Pending Publication and Flint MCP Canary Validation
+## v1.4.0 Source-Machine Publication and Flint MCP Canary
 
-`v1.4.0` is the publisher default. Its 26 direct skill folders are pending
-source publication and Flint MCP canary validation, including
-fresh-conversation and second-machine validation. The following is the expected
-library shape after publication:
+`v1.4.0` is the publisher default. Its 26 direct skill folders are published to
+the source user's OneDrive library, and the Flint MCP canary passed on that
+machine. Fresh-conversation coverage for all skills and second-machine
+validation remain pending. The library shape is:
 
 The standard library path is:
 
@@ -89,12 +89,12 @@ enable its user-global junctions with one command:
 
 ```powershell
 Set-Location C:\Development\ACT_Skills_for_Scout
-.\scripts\Install-ActSkillsForScout.ps1 -Publish
+.\scripts\Install-ActSkillsForScout.ps1 -Publish -Apply
 ```
 
-`-Publish` updates the managed OneDrive library and then creates or confirms the
-source machine's junctions. It does not modify Scout settings, a project, a
-workspace, or native Scout custom skills.
+`-Publish -Apply` updates the managed OneDrive library, creates or confirms the
+source machine's junctions, and registers Flint. Without `-Apply`, the script
+only previews the bundle operation.
 
 ## Install on a Machine
 
@@ -103,7 +103,7 @@ synced library:
 
 ```powershell
 Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
-.\Install-ActSkillsForScout.ps1
+.\Install-ActSkillsForScout.ps1 -Apply
 ```
 
 The bootstrap creates a named junction for each published skill:
@@ -121,6 +121,35 @@ Open a new Scout conversation after installation. Do not enable
 `loadCopilotCliSkills` or import these folders into the native Scout Skills UI
 for this delivery path.
 
+## Flint MCP Registration
+
+Flint is installed with the skill bundle. Preview the complete operation:
+
+```powershell
+.\Install-ActSkillsForScout.ps1
+```
+
+Apply the complete operation:
+
+```powershell
+.\Install-ActSkillsForScout.ps1 -Apply -Confirm:$false
+```
+
+The entry launches `npx -y flint-chart-mcp@0.5.1
+--disable-file-reference`. `npx` resolves the pinned package on first server
+launch; the installer does not create a global npm installation. It creates a
+timestamped backup, refuses to replace any differing `flint` entry, and does
+not expose local file references. Restart Scout, then confirm the Flint tools
+and run a harmless visual canary.
+
+To remove only the reviewed entry, first inspect the rollback preview and then
+run it explicitly:
+
+```powershell
+.\Uninstall-ActSkillsForScout.ps1
+.\Uninstall-ActSkillsForScout.ps1 -Apply -Confirm:$false
+```
+
 ## Updates
 
 1. Update and commit the source package in the GitHub repository.
@@ -137,7 +166,7 @@ On a configured machine, run:
 
 ```powershell
 Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
-.\Uninstall-ActSkillsForScout.ps1
+.\Uninstall-ActSkillsForScout.ps1 -Apply
 ```
 
 The removal script deletes only junctions that point to this exact library. It
@@ -164,8 +193,8 @@ and preserved all five matching junctions.
 The historical v1.1.1 publication hardened `act-skill-inventory-report` for
 all host-reported scopes. On 2026-08-26, its OneDrive library was published
 and all 19 source-machine junctions were confirmed. That record does not
-validate v1.4.0. The v1.4.0 package is pending source publication and Flint MCP
-canary validation: manual installation on each target machine,
-fresh-conversation validation, host-specific Flint MCP discovery, and
-verification that a published update is visible through existing junctions on
-the second machine. macOS support has not been evaluated.
+validate v1.4.0. The v1.4.0 package is published on the source machine, its 26
+local junctions and published skill payload were verified, and its
+host-specific Flint MCP canary passed. Remaining work is fresh-conversation
+validation for all skills, manual installation on each target machine, and
+second-machine update propagation. macOS support has not been evaluated.

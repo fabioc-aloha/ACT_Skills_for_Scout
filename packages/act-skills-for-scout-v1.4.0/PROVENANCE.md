@@ -2,9 +2,11 @@
 
 ## Release Status
 
-v1.4.0 is pending source publication and Flint MCP canary validation. Its
-reviewed Flint capability names are gated on what the active Scout host actually
-exposes; this provenance record is not runtime evidence.
+v1.4.0 source-machine publication and its Flint MCP canary passed on
+2026-08-27. Fresh-conversation coverage for all skills and second-machine
+validation remain pending. Its reviewed Flint capability names are gated on what
+the active Scout host actually exposes; this provenance record is not runtime
+evidence.
 
 ## Method
 
