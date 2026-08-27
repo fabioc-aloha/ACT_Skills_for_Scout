@@ -56,6 +56,10 @@ package. OneDrive propagates that library to the user's other machines. Each
 machine runs the local bootstrap once to add user-level junctions. No project
 configuration, repository files, or Scout setting changes are required.
 
+On 2026-08-26, the v0.1.0 library replicated to a second machine through
+OneDrive and each machine showed all three user-global skill folders after the
+one-time bootstrap. Fresh-conversation skill invocation remains to be recorded.
+
 See [USER-GLOBAL-DELIVERY-TEST.md](docs/USER-GLOBAL-DELIVERY-TEST.md).
 
 ## Repository Layout

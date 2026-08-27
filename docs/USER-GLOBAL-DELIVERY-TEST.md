@@ -73,6 +73,23 @@ Start a new Scout conversation and invoke each expected request from
 5. Updating a source package, republishing with `-Force`, and allowing OneDrive
    to synchronize changes the files visible through existing junctions.
 
+## Current Result
+
+On 2026-08-26, the v0.1.0 library was published on the source Windows machine
+under `%OneDrive%\Documents\ScoutSkills\ACT_Skills_for_Scout`. OneDrive
+replicated it to a second machine, where the synced bootstrap created the three
+expected user-global junctions. Both machines showed:
+
+```text
+act-constellation-curation
+act-critical-review
+act-session-closeout
+```
+
+This passes library propagation and per-machine bootstrap. It does not yet prove
+that a fresh Scout conversation invokes every installed skill, nor that a
+republished update arrives through already-created junctions.
+
 ## Removal
 
 From the synced OneDrive library, run:
