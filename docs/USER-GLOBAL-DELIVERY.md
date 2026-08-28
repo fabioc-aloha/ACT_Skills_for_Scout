@@ -31,9 +31,9 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.10.0 Production Package
+## v1.11.0 Production Package
 
-`v1.10.0` is the publisher default. Its 27 direct skill folders include
+`v1.11.0` is the publisher default. Its 27 direct skill folders include
 `act-office-native-authoring`, which creates native Word, PowerPoint, and Excel
 artifacts from approved source material using Scout Co-create capabilities
 rather than Markdown conversion. It also publishes a separate reviewed MCP
@@ -103,7 +103,10 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 `-Publish -Apply` invokes
 `Publish-ActScoutBundleToOneDrive.ps1`, updates the managed OneDrive library,
 creates or confirms the source machine's junctions, and publishes the MCP
-profile catalog. Without `-Apply`, the script only previews the bundle
+profile catalog. It also enables Scout's **Load Copilot CLI skills** setting,
+which exposes `%USERPROFILE%\.copilot\skills` in the Skills UI. The installer
+requires valid Scout settings JSON and creates a timestamped backup before
+changing that preference. Without `-Apply`, the script only previews the bundle
 operation.
 
 Before making changes, the installer asks the operator to disable Scout's
@@ -133,9 +136,9 @@ The bootstrap creates a named junction for each published skill:
 It refuses to replace an existing directory or a junction with a different
 target. Resolve that conflict deliberately rather than overwriting it.
 
-Open a new Scout conversation after installation. Do not enable
-`loadCopilotCliSkills` or import these folders into the native Scout Skills UI
-for this delivery path.
+Restart Scout after installation. The installer enables
+`loadCopilotCliSkills` so the junctioned ACT skills appear in the Skills UI; do
+not import duplicate copies through the UI.
 
 ## MCP Profile Registration
 
@@ -187,7 +190,8 @@ Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
 
 The removal script deletes only junctions that point to this exact library. It
 does not remove a conflicting directory, an unrelated junction, the OneDrive
-library, or any MCP registration. Remove MCP profiles independently.
+library, the Copilot CLI skill-loading preference, or any MCP registration.
+Remove MCP profiles independently.
 
 ## Current Source-Machine Validation
 

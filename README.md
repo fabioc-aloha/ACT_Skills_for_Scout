@@ -3,7 +3,8 @@
 ![ACT Skills for Scout banner](assets/act-skills-scout-banner.svg)
 
 Install a user-global bundle of 27 ACT skills and a curated MCP profile catalog
-for Microsoft Scout on Windows.
+for Microsoft Scout on Windows. Applied skill installations automatically enable
+Scout's Copilot CLI skill discovery bridge.
 
 ## Prerequisites
 
@@ -31,6 +32,11 @@ This publishes the bundle to
 skill junctions under `%USERPROFILE%\.copilot\skills`, and publishes the
 individually selectable MCP profile catalog. Restart Scout when the command
 completes.
+
+Every applied skill installation enables Scout's **Load Copilot CLI skills**
+setting so the user-global junctions are visible in the Skills UI. The
+installer validates `%USERPROFILE%\.scout\m-settings.json`, creates a
+timestamped backup before changing that setting, and preserves it on uninstall.
 
 Before any installation changes, the script requires confirmation that the
 built-in `/excalidraw` skill was disabled in Scout because it can interfere with
@@ -87,8 +93,8 @@ Then apply it:
 ```
 
 This removes only ACT skill junctions that point to this bundle. It preserves
-the OneDrive library and every MCP registration; remove MCP profiles separately
-with `Uninstall-ActMcpProfile.ps1`.
+the OneDrive library, Copilot CLI skill-loading preference, and every MCP
+registration; remove MCP profiles separately with `Uninstall-ActMcpProfile.ps1`.
 
 ## Included Capabilities
 

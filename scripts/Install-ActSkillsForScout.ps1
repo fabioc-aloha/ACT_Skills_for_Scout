@@ -8,7 +8,8 @@ param(
     [string]$SkillsRoot = (Join-Path $HOME '.copilot\skills'),
     [switch]$Publish,
     [switch]$Apply,
-    [switch]$ExcalidrawDisabled
+    [switch]$ExcalidrawDisabled,
+    [string]$ScoutSettingsPath = (Join-Path $HOME '.scout\m-settings.json')
 )
 
 $ErrorActionPreference = 'Stop'
@@ -23,6 +24,59 @@ if (-not $ExcalidrawDisabled) {
     if ($confirmation -notmatch '^(?i:y|yes)$') {
         throw 'Installation cancelled. Disable the bundled /excalidraw skill in Scout, then rerun the installer.'
     }
+}
+
+if (-not (Test-Path -LiteralPath $ScoutSettingsPath -PathType Leaf)) {
+    throw "Scout settings were not found: $ScoutSettingsPath"
+}
+
+try {
+    $scoutSettings = Get-Content -LiteralPath $ScoutSettingsPath -Raw | ConvertFrom-Json
+}
+catch {
+    throw "Scout settings are not valid JSON: $($_.Exception.Message)"
+}
+
+$copilotCliSkillsProperty = $scoutSettings.PSObject.Properties['loadCopilotCliSkills']
+if ($copilotCliSkillsProperty -and $copilotCliSkillsProperty.Value -isnot [bool]) {
+    throw "Scout setting 'loadCopilotCliSkills' must be a Boolean: $ScoutSettingsPath"
+}
+
+if (-not $copilotCliSkillsProperty -or -not $copilotCliSkillsProperty.Value) {
+    $baseBackupPath = "$ScoutSettingsPath.backup-$(Get-Date -Format 'yyyyMMddHHmmss')"
+    $backupPath = $baseBackupPath
+    $suffix = 1
+    while (Test-Path -LiteralPath $backupPath) {
+        $backupPath = "$baseBackupPath-$suffix"
+        $suffix++
+    }
+
+    if ($PSCmdlet.ShouldProcess(
+        $ScoutSettingsPath,
+        "Enable Copilot CLI skill loading and create backup $backupPath"
+    )) {
+        if ($copilotCliSkillsProperty) {
+            $copilotCliSkillsProperty.Value = $true
+        }
+        else {
+            $scoutSettings | Add-Member -MemberType NoteProperty -Name 'loadCopilotCliSkills' -Value $true
+        }
+
+        Copy-Item -LiteralPath $ScoutSettingsPath -Destination $backupPath
+        $json = $scoutSettings | ConvertTo-Json -Depth 20
+        [System.IO.File]::WriteAllText(
+            $ScoutSettingsPath,
+            "$json$([Environment]::NewLine)",
+            [System.Text.UTF8Encoding]::new($false)
+        )
+        Write-Output "Enabled Copilot CLI skill loading. Backup: $backupPath"
+    }
+    elseif (-not $WhatIfPreference) {
+        throw 'Installation cancelled because Copilot CLI skill loading was not enabled.'
+    }
+}
+else {
+    Write-Output 'Copilot CLI skill loading is already enabled.'
 }
 
 $publisher = Join-Path $PSScriptRoot 'Publish-ActScoutBundleToOneDrive.ps1'
@@ -71,3 +125,4 @@ foreach ($skill in $skills) {
 }
 
 Write-Output 'Install MCP profiles separately with Install-ActMcpProfile.ps1 -Profile <profile> -Apply.'
+Write-Output 'Restart Scout to discover the user-global ACT skills.'
