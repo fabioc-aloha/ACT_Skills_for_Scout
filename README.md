@@ -2,7 +2,7 @@
 
 ![ACT Skills for Scout banner](assets/act-skills-scout-banner.svg)
 
-Install a user-global bundle of 27 ACT skills and the Flint chart MCP server
+Install a user-global bundle of 27 ACT skills and a curated MCP profile catalog
 for Microsoft Scout on Windows.
 
 ## Prerequisites
@@ -28,14 +28,27 @@ Apply the installation:
 
 This publishes the bundle to
 `%OneDrive%\Documents\ScoutSkills\ACT_Skills_for_Scout`, creates user-global
-skill junctions under `%USERPROFILE%\.copilot\skills`, and registers
-`flint-chart-mcp@0.5.1` with local file references disabled. Restart Scout when
-the command completes.
+skill junctions under `%USERPROFILE%\.copilot\skills`, and publishes the
+individually selectable MCP profile catalog. Restart Scout when the command
+completes.
 
 Before any installation changes, the script requires confirmation that the
 built-in `/excalidraw` skill was disabled in Scout because it can interfere with
 the Mermaid and Illustrator skills. For an intentional unattended install, pass
 `-ExcalidrawDisabled` to attest that this was already done.
+
+## Install an MCP Profile
+
+MCP servers are not enabled by the skill installer. From the synced library,
+preview and then apply one reviewed profile:
+
+```powershell
+.\Install-ActMcpProfile.ps1 -Profile flint
+.\Install-ActMcpProfile.ps1 -Profile flint -Apply -Confirm:$false
+```
+
+See [`docs/MCP-CATALOG.md`](docs/MCP-CATALOG.md) for the production, pilot,
+managed, and deferred profiles plus their prerequisites and harmless canaries.
 
 ## Install or Update on Another Machine
 
@@ -46,8 +59,9 @@ Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
 .\Install-ActSkillsForScout.ps1 -Apply
 ```
 
-The command creates missing skill links, preserves matching links, and
-registers Flint. Use it again after a synchronized update, then restart Scout.
+The command creates missing skill links and preserves matching links. Install
+or update MCP profiles independently after a synchronized update, then restart
+Scout.
 
 ## Update the Publishing Machine
 
@@ -80,5 +94,5 @@ timestamped backup of Scout's MCP configuration.
 
 The bundle provides reasoning, planning, review, documentation, safety,
 continuity, browser-safety, native Office authoring, and Flint chart/theme
-skills. Flint is available through `render_chart`, `compile_chart`, `validate_chart`,
-`list_chart_types`, `list_themes`, and `create_chart_view`.
+skills. Its MCP catalog includes individually selectable Flint, Fabric,
+Azure DevOps, Azure Kusto, Fabric RTI, and YouTube profiles.

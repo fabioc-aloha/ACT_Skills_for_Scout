@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "releaseVersion": "1.7.0",
+  "profiles": [
+    {
+      "id": "flint",
+      "status": "production",
+      "installable": true,
+      "summary": "Pinned local chart rendering with local file references disabled.",
+      "authentication": "None.",
+      "canary": "validate_chart with inline data.",
+      "configuration": {
+        "name": "flint",
+        "command": "npx",
+        "args": ["-y", "flint-chart-mcp@0.5.1", "--disable-file-reference"],
+        "envFile": "${mcpEnvDir}/flint.env"
+      },
+      "tools": ["render_chart", "compile_chart", "validate_chart", "list_chart_types", "list_themes", "create_chart_view"]
+    },
+    {
+      "id": "fabric-docs-ro",
+      "status": "production",
+      "installable": true,
+      "summary": "Official Microsoft Fabric documentation and best-practices server with no live tenant access.",
+      "authentication": "None.",
+      "canary": "docs_list-item-types.",
+      "runtime": {
+        "kind": "dotnet-tool",
+        "package": "Microsoft.Fabric.Mcp",
+        "version": "1.4.0",
+        "minimumSdkMajor": 10,
+        "executable": "fabmcp.exe"
+      },
+      "configuration": {
+        "name": "fabric-docs-ro",
+        "command": "{{fabricRuntimeRoot}}\\fabmcp.exe",
+        "args": ["server", "start", "--mode", "namespace", "--namespace", "docs", "--read-only"]
+      },
+      "tools": ["docs_list-item-types", "docs_item-api-spec", "docs_platform-api-spec", "docs_item-definitions", "docs_best-practices", "docs_api-examples"]
+    },
+    {
+      "id": "azure-devops-ro",
+      "status": "controlled-pilot",
+      "installable": true,
+      "summary": "Official Azure DevOps MCP restricted by the host to read-only tools for one organization.",
+      "authentication": "Interactive sign-in at server launch. The operator supplies the organization name.",
+      "canary": "core_list_projects.",
+      "configuration": {
+        "name": "azure-devops-ro",
+        "command": "npx",
+        "args": ["-y", "@azure-devops/mcp@2.9.0", "{{azureDevOpsOrganization}}", "--domains", "all", "--authentication", "interactive"]
+      },
+      "tools": ["core_list_project_teams", "core_list_projects", "core_get_identity_ids", "work", "pipelines_build", "pipelines_build_log", "pipelines_definition", "pipelines_run", "pipelines_artifact", "repo_repository", "repo_pull_request", "repo_pull_request_thread", "repo_branch", "repo_file", "repo_search_commits", "wit_work_item", "wit_query", "wit_backlog", "wit_work_item_attachment", "wiki", "testplan", "testplan_show_test_results_from_build_id", "search_code", "search_wiki", "search_workitem", "advsec_get_alerts", "advsec_get_alert_details"]
+    },
+    {
+      "id": "azure-kusto-ro",
+      "status": "controlled-pilot",
+      "installable": true,
+      "summary": "Official Azure MCP, pinned in read-only Kusto namespace mode; it is not an Azure Synapse server.",
+      "authentication": "Azure CLI or managed identity with appropriate Azure RBAC.",
+      "canary": "kusto with --learn.",
+      "configuration": {
+        "name": "azure-kusto-ro",
+        "command": "npx",
+        "args": ["-y", "@azure/mcp@3.0.0-beta.38", "server", "start", "--mode", "namespace", "--namespace", "kusto", "--read-only"]
+      },
+      "tools": ["group_list", "group_resource_list", "kusto", "subscription_list"]
+    },
+    {
+      "id": "fabric-rti-ro",
+      "status": "controlled-pilot",
+      "installable": true,
+      "summary": "Official Microsoft Fabric Real-Time Intelligence preview, restricted to known non-production Kusto services.",
+      "authentication": "Azure Identity. The operator must configure an explicit non-production Kusto allow-list in the referenced environment file.",
+      "canary": "kusto_known_services.",
+      "configuration": {
+        "name": "fabric-rti-ro",
+        "command": "uvx",
+        "args": ["--from", "microsoft-fabric-rti-mcp==0.6.2", "microsoft-fabric-rti-mcp"],
+        "envFile": "${mcpEnvDir}/fabric-rti.env"
+      },
+      "tools": ["kusto_known_services", "kusto_query", "kusto_list_entities", "kusto_describe_database", "kusto_describe_database_entity", "kusto_show_queryplan", "kusto_diagnostics"]
+    },
+    {
+      "id": "youtube-mcp-tools",
+      "status": "controlled-pilot",
+      "installable": true,
+      "summary": "Source-pinned, evidence-first public YouTube research server without direct-provider credentials.",
+      "authentication": "No credential for transcript tools. A YouTube API key is optional and is intentionally not configured by this profile.",
+      "canary": "youtube_quota_status.",
+      "configuration": {
+        "name": "youtube-mcp-tools",
+        "command": "npx",
+        "args": ["-y", "github:fabioc-aloha/youtube-mcp-tools#0130a118a78432c82b6b3081ed866fc08bae9569"]
+      },
+      "tools": ["youtube_get_transcript", "youtube_search_transcript", "youtube_quota_status", "youtube_build_collateral_prompt", "youtube_render_resource_page"]
+    },
+    {
+      "id": "m365-workiq-native",
+      "status": "managed-availability",
+      "installable": false,
+      "summary": "Scout-provided WorkIQ access to Microsoft 365 data.",
+      "authentication": "Managed by Scout and Microsoft 365 sign-in.",
+      "canary": "Confirm the native workiq server is exposed by Scout.",
+      "reason": "Do not register duplicate external Work IQ MCP endpoints in Scout."
+    },
+    {
+      "id": "synapse",
+      "status": "deferred",
+      "installable": false,
+      "summary": "Azure Synapse-specific MCP.",
+      "reason": "No verified Microsoft-supported Synapse-specific MCP package or hosted server contract is available."
+    },
+    {
+      "id": "fabric-hosted",
+      "status": "deferred",
+      "installable": false,
+      "summary": "FabricIQ, Power BI Modeling, and Fabric SQL Endpoint hosted MCP surfaces.",
+      "reason": "Microsoft-hosted references exist, but their versioning, support, and tool-boundary contracts are not sufficient for admission."
+    }
+  ]
+}

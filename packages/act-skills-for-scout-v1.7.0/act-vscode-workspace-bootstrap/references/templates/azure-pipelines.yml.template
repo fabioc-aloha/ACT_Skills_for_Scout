@@ -1,0 +1,19 @@
+# Convert this template to azure-pipelines.yml only after the project-specific
+# build and test commands have been reviewed and approved.
+trigger:
+  branches:
+    include:
+      - main
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+
+  # Add the project's approved restore, build, test, and package commands here.

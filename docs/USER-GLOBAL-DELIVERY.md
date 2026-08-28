@@ -31,12 +31,13 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.6.0 Production Package
+## v1.7.0 Production Package
 
-`v1.6.0` is the publisher default. Its 27 direct skill folders include
+`v1.7.0` is the publisher default. Its 27 direct skill folders include
 `act-office-native-authoring`, which creates native Word, PowerPoint, and Excel
 artifacts from approved source material using Scout Co-create capabilities
-rather than Markdown conversion. The library shape is:
+rather than Markdown conversion. It also publishes a separate reviewed MCP
+profile catalog. The library shape is:
 
 The standard library path is:
 
@@ -49,7 +50,12 @@ It contains:
 ```text
 Install-ActSkillsForScout.ps1
 Uninstall-ActSkillsForScout.ps1
+Install-ActMcpProfile.ps1
+Uninstall-ActMcpProfile.ps1
+Test-ActMcpCatalog.ps1
+MCP-CATALOG.md
 library-manifest.json
+mcp-catalog\
 skills\
   act-constellation-curation\
   act-critical-review\
@@ -95,8 +101,9 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 
 `-Publish -Apply` invokes
 `Publish-ActScoutBundleToOneDrive.ps1`, updates the managed OneDrive library,
-creates or confirms the source machine's junctions, and registers Flint.
-Without `-Apply`, the script only previews the bundle operation.
+creates or confirms the source machine's junctions, and publishes the MCP
+profile catalog. Without `-Apply`, the script only previews the bundle
+operation.
 
 Before making changes, the installer asks the operator to disable Scout's
 built-in `/excalidraw` skill, which can interfere with the Mermaid and
@@ -129,33 +136,33 @@ Open a new Scout conversation after installation. Do not enable
 `loadCopilotCliSkills` or import these folders into the native Scout Skills UI
 for this delivery path.
 
-## Flint MCP Registration
+## MCP Profile Registration
 
-Flint is installed with the skill bundle. Preview the complete operation:
+MCP profiles are installed separately from the skill bundle. Preview a specific
+profile:
 
 ```powershell
-.\Install-ActSkillsForScout.ps1
+.\Install-ActMcpProfile.ps1 -Profile flint
 ```
 
-Apply the complete operation:
+Apply only that profile:
 
 ```powershell
-.\Install-ActSkillsForScout.ps1 -Apply -Confirm:$false
+.\Install-ActMcpProfile.ps1 -Profile flint -Apply -Confirm:$false
 ```
 
-The entry launches `npx -y flint-chart-mcp@0.5.1
---disable-file-reference`. `npx` resolves the pinned package on first server
-launch; the installer does not create a global npm installation. It creates a
-timestamped backup, refuses to replace any differing `flint` entry, and does
-not expose local file references. Restart Scout, then confirm the Flint tools
-and run a harmless visual canary.
+The catalog contains production, controlled-pilot, managed-availability, and
+deferred profiles. Every applied profile creates a timestamped configuration
+backup and refuses to replace a differing entry. Restart Scout, then run that
+profile's recorded harmless canary. See [`MCP-CATALOG.md`](MCP-CATALOG.md) for
+the reviewed server contracts, prerequisites, and safety boundaries.
 
-To remove only the reviewed entry, first inspect the rollback preview and then
-run it explicitly:
+To remove a reviewed profile, first inspect the rollback preview and then run
+it explicitly:
 
 ```powershell
-.\Uninstall-ActSkillsForScout.ps1
-.\Uninstall-ActSkillsForScout.ps1 -Apply -Confirm:$false
+.\Uninstall-ActMcpProfile.ps1 -Profile flint
+.\Uninstall-ActMcpProfile.ps1 -Profile flint -Apply -Confirm:$false
 ```
 
 ## Updates
@@ -178,8 +185,8 @@ Set-Location "$env:OneDrive\Documents\ScoutSkills\ACT_Skills_for_Scout"
 ```
 
 The removal script deletes only junctions that point to this exact library. It
-does not remove a conflicting directory, an unrelated junction, or the OneDrive
-library itself.
+does not remove a conflicting directory, an unrelated junction, the OneDrive
+library, or any MCP registration. Remove MCP profiles independently.
 
 ## Scope and Evidence
 
