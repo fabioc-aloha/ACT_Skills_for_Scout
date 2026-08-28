@@ -31,12 +31,12 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.4.0 Source-Machine Publication and Flint MCP Canary
+## v1.6.0 Production Package
 
-`v1.4.0` is the publisher default. Its 26 direct skill folders are published to
-the source user's OneDrive library, and the Flint MCP canary passed on that
-machine. Fresh-conversation coverage for all skills and second-machine
-validation remain pending. The library shape is:
+`v1.6.0` is the publisher default. Its 27 direct skill folders include
+`act-office-native-authoring`, which creates native Word, PowerPoint, and Excel
+artifacts from approved source material using Scout Co-create capabilities
+rather than Markdown conversion. The library shape is:
 
 The standard library path is:
 
@@ -74,6 +74,7 @@ skills\
   act-feasibility-spike\
   act-browser-safety\
   act-project-capability-authoring\
+  act-office-native-authoring\
   act-flint-readiness\
   act-flint-chart\
   act-flint-theme\

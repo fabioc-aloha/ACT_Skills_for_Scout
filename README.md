@@ -2,7 +2,7 @@
 
 ![ACT Skills for Scout banner](assets/act-skills-scout-banner.svg)
 
-Install a user-global bundle of 26 ACT skills and the Flint chart MCP server
+Install a user-global bundle of 27 ACT skills and the Flint chart MCP server
 for Microsoft Scout on Windows.
 
 ## Prerequisites
@@ -79,6 +79,6 @@ timestamped backup of Scout's MCP configuration.
 ## Included Capabilities
 
 The bundle provides reasoning, planning, review, documentation, safety,
-continuity, browser-safety, and Flint chart/theme skills. Flint is available
-through `render_chart`, `compile_chart`, `validate_chart`,
+continuity, browser-safety, native Office authoring, and Flint chart/theme
+skills. Flint is available through `render_chart`, `compile_chart`, `validate_chart`,
 `list_chart_types`, `list_themes`, and `create_chart_view`.
