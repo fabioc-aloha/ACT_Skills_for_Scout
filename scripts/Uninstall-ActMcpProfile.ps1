@@ -11,6 +11,7 @@ param(
     }),
     [string]$McpConfigPath = (Join-Path $HOME '.scout\m-mcp-servers.json'),
     [string]$FabricRuntimeRoot = (Join-Path $HOME '.scout\mcp-runtimes\fabric-docs'),
+    [string]$YouTubeRuntimeRoot = (Join-Path $HOME '.scout\mcp-runtimes\youtube-mcp-tools'),
     [string]$AzureDevOpsOrganization
 )
 
@@ -22,6 +23,7 @@ $selectedProfile = Get-ActMcpProfile -Catalog $catalog -ProfileId $Profile
 $entry = Resolve-ActMcpProfileEntry `
     -Profile $selectedProfile `
     -FabricRuntimeRoot $FabricRuntimeRoot `
+    -YouTubeRuntimeRoot $YouTubeRuntimeRoot `
     -AzureDevOpsOrganization $AzureDevOpsOrganization
 
 if (-not $Apply) {

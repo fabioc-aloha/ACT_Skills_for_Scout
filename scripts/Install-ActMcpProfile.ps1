@@ -11,6 +11,7 @@ param(
     }),
     [string]$McpConfigPath = (Join-Path $HOME '.scout\m-mcp-servers.json'),
     [string]$FabricRuntimeRoot = (Join-Path $HOME '.scout\mcp-runtimes\fabric-docs'),
+    [string]$YouTubeRuntimeRoot = (Join-Path $HOME '.scout\mcp-runtimes\youtube-mcp-tools'),
     [string]$AzureDevOpsOrganization
 )
 
@@ -31,6 +32,7 @@ if (-not $selectedProfile.installable) {
 $entry = Resolve-ActMcpProfileEntry `
     -Profile $selectedProfile `
     -FabricRuntimeRoot $FabricRuntimeRoot `
+    -YouTubeRuntimeRoot $YouTubeRuntimeRoot `
     -AzureDevOpsOrganization $AzureDevOpsOrganization
 
 if (-not $Apply) {
@@ -76,6 +78,61 @@ if ($Profile -eq 'fabric-docs-ro') {
 
     if (-not (Test-Path -LiteralPath $fabricExecutable -PathType Leaf)) {
         throw "Fabric MCP executable was not found after installation: $fabricExecutable"
+    }
+}
+
+if ($Profile -eq 'youtube-mcp-tools') {
+    $youtubeExecutable = Join-Path $YouTubeRuntimeRoot $selectedProfile.runtime.executable
+    if (Test-Path -LiteralPath $youtubeExecutable -PathType Leaf) {
+        $actualCommit = (& git -C $YouTubeRuntimeRoot rev-parse HEAD).Trim()
+        if ($LASTEXITCODE -ne 0 -or $actualCommit -ne $selectedProfile.runtime.commit) {
+            throw "YouTube MCP runtime does not match the reviewed source commit: $YouTubeRuntimeRoot"
+        }
+    }
+    else {
+        if ($WhatIfPreference) {
+            Write-Output "What if: build YouTube MCP source $($selectedProfile.runtime.commit) in $YouTubeRuntimeRoot."
+            exit 0
+        }
+        if (Test-Path -LiteralPath $YouTubeRuntimeRoot) {
+            throw "YouTube MCP runtime path already exists and is not the reviewed build: $YouTubeRuntimeRoot"
+        }
+
+        $git = Get-Command git -ErrorAction SilentlyContinue
+        $node = Get-Command node -ErrorAction SilentlyContinue
+        if (-not $git -or -not $node) {
+            throw "Profile 'youtube-mcp-tools' requires Git and Node.js $($selectedProfile.runtime.minimumNodeMajor) or later."
+        }
+        $nodeMajor = [int]((& $node.Path --version).TrimStart('v').Split('.')[0])
+        if ($nodeMajor -lt $selectedProfile.runtime.minimumNodeMajor) {
+            throw "Profile 'youtube-mcp-tools' requires Node.js $($selectedProfile.runtime.minimumNodeMajor) or later."
+        }
+
+        if ($PSCmdlet.ShouldProcess(
+            $YouTubeRuntimeRoot,
+            "Build YouTube MCP source $($selectedProfile.runtime.commit)"
+        )) {
+            & $git.Path clone --quiet --no-checkout $selectedProfile.runtime.repository $YouTubeRuntimeRoot
+            if ($LASTEXITCODE -ne 0) {
+                throw 'Failed to clone the reviewed YouTube MCP source.'
+            }
+            & $git.Path -C $YouTubeRuntimeRoot checkout --quiet $selectedProfile.runtime.commit
+            if ($LASTEXITCODE -ne 0) {
+                throw 'Failed to check out the reviewed YouTube MCP source commit.'
+            }
+            & npm --prefix $YouTubeRuntimeRoot install --ignore-scripts --no-audit --no-fund --loglevel=error
+            if ($LASTEXITCODE -ne 0) {
+                throw 'Failed to restore the reviewed YouTube MCP dependencies.'
+            }
+            & npm --prefix $YouTubeRuntimeRoot run build
+            if ($LASTEXITCODE -ne 0) {
+                throw 'Failed to build the reviewed YouTube MCP source.'
+            }
+        }
+    }
+
+    if (-not (Test-Path -LiteralPath $youtubeExecutable -PathType Leaf)) {
+        throw "YouTube MCP executable was not found after the reviewed build: $youtubeExecutable"
     }
 }
 

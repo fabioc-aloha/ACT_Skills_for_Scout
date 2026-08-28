@@ -33,6 +33,7 @@ function Resolve-ActMcpProfileEntry {
     param(
         [Parameter(Mandatory)]$Profile,
         [Parameter(Mandatory)][string]$FabricRuntimeRoot,
+        [Parameter(Mandatory)][string]$YouTubeRuntimeRoot,
         [string]$AzureDevOpsOrganization
     )
 
@@ -46,9 +47,11 @@ function Resolve-ActMcpProfileEntry {
 
     $organization = if ($AzureDevOpsOrganization) { $AzureDevOpsOrganization } else { '' }
     $command = $Profile.configuration.command.Replace('{{fabricRuntimeRoot}}', $FabricRuntimeRoot)
+    $command = $command.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
     $arguments = @(
         $Profile.configuration.args | ForEach-Object {
-            $_.Replace('{{azureDevOpsOrganization}}', $organization)
+            $argument = $_.Replace('{{azureDevOpsOrganization}}', $organization)
+            $argument.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
         }
     )
     $config = [ordered]@{

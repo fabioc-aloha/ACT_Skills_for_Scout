@@ -31,9 +31,9 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.8.0 Production Package
+## v1.9.0 Production Package
 
-`v1.8.0` is the publisher default. Its 27 direct skill folders include
+`v1.9.0` is the publisher default. Its 27 direct skill folders include
 `act-office-native-authoring`, which creates native Word, PowerPoint, and Excel
 artifacts from approved source material using Scout Co-create capabilities
 rather than Markdown conversion. It also publishes a separate reviewed MCP
