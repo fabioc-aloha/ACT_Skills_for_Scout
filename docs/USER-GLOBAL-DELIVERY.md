@@ -31,9 +31,9 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.11.0 Production Package
+## v1.12.0 Production Package
 
-`v1.11.0` is the publisher default. Its 27 direct skill folders include
+`v1.12.0` is the publisher default. Its 27 direct skill folders include
 `act-office-native-authoring`, which creates native Word, PowerPoint, and Excel
 artifacts from approved source material using Scout Co-create capabilities
 rather than Markdown conversion. It also publishes a separate reviewed MCP
@@ -104,7 +104,9 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 `Publish-ActScoutBundleToOneDrive.ps1`, updates the managed OneDrive library,
 creates or confirms the source machine's junctions, and publishes the MCP
 profile catalog. It also enables Scout's **Load Copilot CLI skills** setting,
-which exposes `%USERPROFILE%\.copilot\skills` in the Skills UI. The installer
+which exposes `%USERPROFILE%\.copilot\skills` in the Skills UI, and
+automatically registers the five reviewed MCP profiles: Flint, Fabric docs,
+Azure DevOps read-only, Azure Kusto read-only, and YouTube. The installer
 requires valid Scout settings JSON and creates a timestamped backup before
 changing that preference. Without `-Apply`, the script only previews the bundle
 operation.
@@ -142,8 +144,9 @@ not import duplicate copies through the UI.
 
 ## MCP Profile Registration
 
-MCP profiles are installed separately from the skill bundle. Preview a specific
-profile:
+The ACT installer registers Flint, Fabric docs, Azure DevOps read-only for
+`GlobalCustomerExperience`, Azure Kusto read-only, and YouTube automatically.
+Preview or independently manage a specific profile:
 
 ```powershell
 .\Install-ActMcpProfile.ps1 -Profile flint
@@ -157,9 +160,11 @@ Apply only that profile:
 
 The catalog contains production, controlled-pilot, managed-availability, and
 deferred profiles. Every applied profile creates a timestamped configuration
-backup and refuses to replace a differing entry. Restart Scout, then run that
-profile's recorded harmless canary. See [`MCP-CATALOG.md`](MCP-CATALOG.md) for
-the reviewed server contracts, prerequisites, and safety boundaries.
+backup and refuses to replace a differing entry. Fabric RTI is applied only
+when its environment file disables unknown services and defines an explicit
+non-production Kusto allow-list. Restart Scout, then run each profile's
+recorded harmless canary. See [`MCP-CATALOG.md`](MCP-CATALOG.md) for the
+reviewed server contracts, prerequisites, and safety boundaries.
 
 To remove a reviewed profile, first inspect the rollback preview and then run
 it explicitly:
@@ -215,6 +220,12 @@ On 2026-08-28, the v1.11.0 installer was also tested against an isolated Scout
 settings file. It enabled `loadCopilotCliSkills` with one timestamped backup,
 preserved the enabled setting on a repeat install without creating another
 backup, and rejected malformed settings JSON before creating a skill junction.
+
+On 2026-08-28, the v1.12.0 installer was tested against isolated Scout settings
+and MCP configuration. It registered all five automatic profiles, migrated only
+the exact catalogued legacy Azure DevOps and YouTube entries to their hardened
+allow-lists, made no changes on a repeat install, and rejected an unrecognised
+Azure DevOps entry.
 
 ## Scope and Evidence
 

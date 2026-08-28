@@ -9,7 +9,12 @@ param(
     [switch]$Publish,
     [switch]$Apply,
     [switch]$ExcalidrawDisabled,
-    [string]$ScoutSettingsPath = (Join-Path $HOME '.scout\m-settings.json')
+    [string]$ScoutSettingsPath = (Join-Path $HOME '.scout\m-settings.json'),
+    [string]$McpConfigPath = (Join-Path $HOME '.scout\m-mcp-servers.json'),
+    [string]$FabricRuntimeRoot = (Join-Path $HOME '.scout\mcp-runtimes\fabric-docs'),
+    [string]$YouTubeRuntimeRoot = (Join-Path $HOME '.scout\mcp-runtimes\youtube-mcp-tools'),
+    [string]$McpEnvironmentRoot = (Join-Path $HOME '.scout\mcp-env'),
+    [string]$AzureDevOpsOrganization = 'GlobalCustomerExperience'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -94,6 +99,33 @@ if (-not $LibraryRoot) {
 
 $libraryPath = (Resolve-Path -LiteralPath $LibraryRoot).Path
 $librarySkillsRoot = Join-Path $libraryPath 'skills'
+$profileInstaller = Join-Path $PSScriptRoot 'Install-ActMcpProfile.ps1'
+$automaticProfiles = @(
+    'flint',
+    'fabric-docs-ro',
+    'azure-devops-ro',
+    'azure-kusto-ro',
+    'youtube-mcp-tools'
+)
+$fabricRtiEnvironmentFile = Join-Path $McpEnvironmentRoot 'fabric-rti.env'
+if (Test-Path -LiteralPath $fabricRtiEnvironmentFile -PathType Leaf) {
+    $fabricRtiEnvironment = Get-Content -LiteralPath $fabricRtiEnvironmentFile -Raw
+    $allowUnknownServicesDisabled = $fabricRtiEnvironment -match '(?m)^\s*KUSTO_ALLOW_UNKNOWN_SERVICES\s*=\s*false\s*(?:#.*)?$'
+    $knownServicesConfigured = $fabricRtiEnvironment -match '(?m)^\s*KUSTO_KNOWN_SERVICES\s*=\s*\S+'
+    if (-not $allowUnknownServicesDisabled -or -not $knownServicesConfigured) {
+        throw "Fabric RTI environment file must disable unknown services and define KUSTO_KNOWN_SERVICES: $fabricRtiEnvironmentFile"
+    }
+
+    $automaticProfiles += 'fabric-rti-ro'
+}
+elseif (-not $WhatIfPreference) {
+    Write-Warning "Fabric RTI was not registered because its non-production allow-list file is absent: $fabricRtiEnvironmentFile"
+}
+
+if (-not (Test-Path -LiteralPath $profileInstaller -PathType Leaf)) {
+    throw "MCP profile installer was not found: $profileInstaller"
+}
+
 $skills = Get-ChildItem -LiteralPath $librarySkillsRoot -Directory |
     Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'SKILL.md') }
 
@@ -124,5 +156,26 @@ foreach ($skill in $skills) {
     }
 }
 
-Write-Output 'Install MCP profiles separately with Install-ActMcpProfile.ps1 -Profile <profile> -Apply.'
+foreach ($profile in $automaticProfiles) {
+    $profileParameters = @{
+        Profile = $profile
+        Apply = $true
+        Confirm = $false
+        McpConfigPath = $McpConfigPath
+        FabricRuntimeRoot = $FabricRuntimeRoot
+        YouTubeRuntimeRoot = $YouTubeRuntimeRoot
+    }
+    if ($profile -eq 'azure-devops-ro') {
+        $profileParameters.AzureDevOpsOrganization = $AzureDevOpsOrganization
+    }
+    if ($WhatIfPreference) {
+        $profileParameters.WhatIf = $true
+    }
+
+    & $profileInstaller @profileParameters
+}
+
+if (-not (Test-Path -LiteralPath $fabricRtiEnvironmentFile -PathType Leaf)) {
+    Write-Output 'Fabric RTI remains unregistered until its validated non-production Kusto allow-list is supplied.'
+}
 Write-Output 'Restart Scout to discover the user-global ACT skills.'

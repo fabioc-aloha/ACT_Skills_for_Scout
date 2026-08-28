@@ -79,8 +79,11 @@ function Test-ActMcpEntry {
         [Parameter(Mandatory)]$Expected
     )
 
-    return ($Actual | ConvertTo-Json -Depth 10 -Compress) -eq
-        ($Expected | ConvertTo-Json -Depth 10 -Compress)
+    return $Actual.builtin -eq $Expected.builtin `
+        -and (($Actual.config | ConvertTo-Json -Depth 10 -Compress) -eq
+            ($Expected.config | ConvertTo-Json -Depth 10 -Compress)) `
+        -and @($Actual.tools).Count -eq @($Expected.tools).Count `
+        -and -not (Compare-Object -ReferenceObject @($Actual.tools) -DifferenceObject @($Expected.tools))
 }
 
 function Get-ActMcpConfiguration {

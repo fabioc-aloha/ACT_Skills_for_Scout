@@ -27,7 +27,7 @@ if (-not $selectedProfile.installable) {
     if ($Apply) {
         throw "MCP profile '$Profile' cannot be installed."
     }
-    exit 0
+    return
 }
 $entry = Resolve-ActMcpProfileEntry `
     -Profile $selectedProfile `
@@ -39,7 +39,7 @@ if (-not $Apply) {
     Write-Output "Preview only for profile '$Profile' ($($selectedProfile.status))."
     Write-Output "Canary after restart: $($selectedProfile.canary)"
     Write-Output ($entry | ConvertTo-Json -Depth 10)
-    exit 0
+    return
 }
 
 if ($Profile -eq 'fabric-docs-ro') {
@@ -47,18 +47,51 @@ if ($Profile -eq 'fabric-docs-ro') {
     if (-not (Test-Path -LiteralPath $fabricExecutable -PathType Leaf)) {
         if ($WhatIfPreference) {
             Write-Output "What if: install $($selectedProfile.runtime.package) $($selectedProfile.runtime.version) to $FabricRuntimeRoot."
-            exit 0
+            return
         }
 
         $dotnet = Get-Command dotnet -ErrorAction SilentlyContinue
-        if (-not $dotnet) {
-            throw "Profile 'fabric-docs-ro' requires a .NET $($selectedProfile.runtime.minimumSdkMajor) SDK or later."
-        }
-
-        $sdks = @(& $dotnet.Path --list-sdks 2>$null)
+        $dotnetPath = if ($dotnet) { $dotnet.Path } else { $null }
+        $sdks = if ($dotnetPath) { @(& $dotnetPath --list-sdks 2>$null) } else { @() }
         $minimumSdkPattern = "^$($selectedProfile.runtime.minimumSdkMajor)\."
         if (-not ($sdks | Where-Object { $_ -match $minimumSdkPattern })) {
-            throw "Profile 'fabric-docs-ro' requires a .NET $($selectedProfile.runtime.minimumSdkMajor) SDK or later."
+            $winget = Get-Command winget -ErrorAction SilentlyContinue
+            if (-not $winget) {
+                throw "Profile 'fabric-docs-ro' requires .NET $($selectedProfile.runtime.minimumSdkMajor) SDK or later, but winget is unavailable to install it."
+            }
+
+            if ($PSCmdlet.ShouldProcess(
+                'Microsoft.DotNet.SDK.10',
+                "Install .NET $($selectedProfile.runtime.minimumSdkMajor) SDK prerequisite"
+            )) {
+                & $winget.Path install `
+                    --id Microsoft.DotNet.SDK.10 `
+                    --exact `
+                    --silent `
+                    --accept-package-agreements `
+                    --accept-source-agreements
+                if ($LASTEXITCODE -ne 0) {
+                    throw "Failed to install the .NET $($selectedProfile.runtime.minimumSdkMajor) SDK prerequisite."
+                }
+            }
+
+            $dotnet = Get-Command dotnet -ErrorAction SilentlyContinue
+            if (-not $dotnet) {
+                $defaultDotnetPath = Join-Path $env:ProgramFiles 'dotnet\dotnet.exe'
+                if (Test-Path -LiteralPath $defaultDotnetPath -PathType Leaf) {
+                    $dotnet = Get-Item -LiteralPath $defaultDotnetPath
+                }
+            }
+            $dotnetPath = if ($dotnet.PSObject.Properties['Path']) {
+                $dotnet.Path
+            }
+            else {
+                $dotnet.FullName
+            }
+            $sdks = if ($dotnetPath) { @(& $dotnetPath --list-sdks 2>$null) } else { @() }
+            if (-not ($sdks | Where-Object { $_ -match $minimumSdkPattern })) {
+                throw "Profile 'fabric-docs-ro' requires a .NET $($selectedProfile.runtime.minimumSdkMajor) SDK or later."
+            }
         }
 
         if ($PSCmdlet.ShouldProcess(
@@ -66,7 +99,7 @@ if ($Profile -eq 'fabric-docs-ro') {
             "Install $($selectedProfile.runtime.package) $($selectedProfile.runtime.version)"
         )) {
             New-Item -ItemType Directory -Path $FabricRuntimeRoot -Force | Out-Null
-            & $dotnet.Path tool install `
+            & $dotnetPath tool install `
                 --tool-path $FabricRuntimeRoot `
                 $selectedProfile.runtime.package `
                 --version $selectedProfile.runtime.version
@@ -92,7 +125,7 @@ if ($Profile -eq 'youtube-mcp-tools') {
     else {
         if ($WhatIfPreference) {
             Write-Output "What if: build YouTube MCP source $($selectedProfile.runtime.commit) in $YouTubeRuntimeRoot."
-            exit 0
+            return
         }
         if (Test-Path -LiteralPath $YouTubeRuntimeRoot) {
             throw "YouTube MCP runtime path already exists and is not the reviewed build: $YouTubeRuntimeRoot"
@@ -141,7 +174,32 @@ $existingProperty = $configuration.servers.PSObject.Properties[$entry.config.nam
 if ($existingProperty) {
     if (Test-ActMcpEntry -Actual $existingProperty.Value -Expected $entry) {
         Write-Output "MCP profile '$Profile' is already registered with the reviewed configuration."
-        exit 0
+        return
+    }
+
+    $legacyToolsProperty = $selectedProfile.PSObject.Properties['legacyTools']
+    if ($legacyToolsProperty) {
+        $legacyEntry = [pscustomobject]@{
+            builtin = $entry.builtin
+            config = $entry.config
+            tools = @($legacyToolsProperty.Value)
+        }
+        if (Test-ActMcpEntry -Actual $existingProperty.Value -Expected $legacyEntry) {
+            if ($PSCmdlet.ShouldProcess(
+                $McpConfigPath,
+                "Replace the known legacy '$($entry.config.name)' entry with the reviewed read-only profile"
+            )) {
+                [void]$configuration.servers.PSObject.Properties.Remove($entry.config.name)
+                $configuration.servers | Add-Member -MemberType NoteProperty -Name $entry.config.name -Value $entry
+                $backupPath = Save-ActMcpConfiguration -Configuration $configuration -McpConfigPath $McpConfigPath
+                Write-Output "Hardened the known legacy MCP profile '$Profile'. Backup: $backupPath"
+                Write-Output "Restart Scout, then run the reviewed canary: $($selectedProfile.canary)"
+            }
+            elseif (-not $WhatIfPreference) {
+                throw "Legacy MCP profile '$Profile' was not hardened."
+            }
+            return
+        }
     }
 
     throw "The existing '$($entry.config.name)' entry differs from profile '$Profile' and was not changed."
