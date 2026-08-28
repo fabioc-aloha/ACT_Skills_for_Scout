@@ -211,6 +211,11 @@ active Scout installation and passed their harmless post-restart canaries:
 Kusto service allow-list and this machine cannot currently retrieve its pinned
 PyPI package because of a TLS handshake failure.
 
+On 2026-08-28, the v1.11.0 installer was also tested against an isolated Scout
+settings file. It enabled `loadCopilotCliSkills` with one timestamped backup,
+preserved the enabled setting on a repeat install without creating another
+backup, and rejected malformed settings JSON before creating a skill junction.
+
 ## Scope and Evidence
 
 Historical delivery evidence: this mechanism passed OneDrive propagation and
