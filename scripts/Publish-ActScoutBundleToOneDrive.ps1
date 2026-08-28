@@ -2,7 +2,7 @@
 # The generated library manifest is a deployment receipt, not the source package manifest.
 [CmdletBinding()]
 param(
-    [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v1.7.0'),
+    [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v1.8.0'),
     [string]$LibraryRoot = $(if ($env:OneDrive) {
         Join-Path $env:OneDrive 'Documents\ScoutSkills\ACT_Skills_for_Scout'
     }),
@@ -64,6 +64,8 @@ if ($catalogContents) {
 }
 Copy-Item -LiteralPath (Join-Path $packagePath 'docs\MCP-CATALOG.md') `
     -Destination (Join-Path $LibraryRoot 'MCP-CATALOG.md') -Force
+Copy-Item -LiteralPath (Join-Path $packagePath 'docs\FABRIC-SYNAPSE-EVIDENCE.md') `
+    -Destination (Join-Path $LibraryRoot 'FABRIC-SYNAPSE-EVIDENCE.md') -Force
 Copy-Item -LiteralPath $PSCommandPath `
     -Destination (Join-Path $LibraryRoot 'Publish-ActScoutBundleToOneDrive.ps1') -Force
 foreach ($obsoleteScript in 'Install-FlintMcpForScout.ps1', 'Uninstall-FlintMcpForScout.ps1') {
