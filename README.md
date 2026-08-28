@@ -86,9 +86,9 @@ Then apply it:
 .\Uninstall-ActSkillsForScout.ps1 -Apply -Confirm:$false
 ```
 
-This removes only ACT skill junctions that point to this bundle and the exact
-reviewed Flint registration. It preserves the OneDrive library and creates a
-timestamped backup of Scout's MCP configuration.
+This removes only ACT skill junctions that point to this bundle. It preserves
+the OneDrive library and every MCP registration; remove MCP profiles separately
+with `Uninstall-ActMcpProfile.ps1`.
 
 ## Included Capabilities
 

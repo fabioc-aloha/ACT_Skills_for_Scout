@@ -189,6 +189,24 @@ The removal script deletes only junctions that point to this exact library. It
 does not remove a conflicting directory, an unrelated junction, the OneDrive
 library, or any MCP registration. Remove MCP profiles independently.
 
+## Current Source-Machine Validation
+
+On 2026-08-28, the published v1.10.0 library and its 14-record MCP catalog
+passed local validation. The following catalog profiles are registered in the
+active Scout installation and passed their harmless post-restart canaries:
+
+| Profile | Verified boundary | Canary |
+| --- | --- | --- |
+| `flint` | Pinned chart server with local file references disabled. | `validate_chart` using inline data. |
+| `fabric-docs-ro` | `Microsoft.Fabric.Mcp` 1.4.0 through the Windows ARM64 `fabmcp.cmd` launcher, docs namespace only, read-only, and no tenant access. | `docs` with `learn=true`. |
+| `azure-devops-ro` | Pinned `@azure-devops/mcp@2.9.0` for `GlobalCustomerExperience`, with the catalog's host-level read-only tool allow-list. | `core_list_projects`. |
+| `azure-kusto-ro` | Pinned `@azure/mcp@3.0.0-beta.38` in read-only Kusto namespace mode. | `kusto` with `learn=true`. |
+| `youtube-mcp-tools` | Source-pinned, locally built public YouTube research server without configured API or direct-provider credentials. | `youtube_quota_status`. |
+
+`fabric-rti-ro` remains unregistered. It requires an explicit non-production
+Kusto service allow-list and this machine cannot currently retrieve its pinned
+PyPI package because of a TLS handshake failure.
+
 ## Scope and Evidence
 
 Historical delivery evidence: this mechanism passed OneDrive propagation and
