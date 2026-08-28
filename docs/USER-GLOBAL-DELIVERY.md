@@ -97,6 +97,12 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 creates or confirms the source machine's junctions, and registers Flint.
 Without `-Apply`, the script only previews the bundle operation.
 
+Before making changes, the installer asks the operator to disable Scout's
+built-in `/excalidraw` skill, which can interfere with the Mermaid and
+Illustrator skills. Disable it in Scout before entering `Y`; use
+`-ExcalidrawDisabled` only to attest to that prerequisite for a deliberate
+unattended install.
+
 ## Install on a Machine
 
 After OneDrive synchronizes the library, run this once on that machine from the

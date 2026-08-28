@@ -32,6 +32,11 @@ skill junctions under `%USERPROFILE%\.copilot\skills`, and registers
 `flint-chart-mcp@0.5.1` with local file references disabled. Restart Scout when
 the command completes.
 
+Before any installation changes, the script requires confirmation that the
+built-in `/excalidraw` skill was disabled in Scout because it can interfere with
+the Mermaid and Illustrator skills. For an intentional unattended install, pass
+`-ExcalidrawDisabled` to attest that this was already done.
+
 ## Install or Update on Another Machine
 
 Wait for OneDrive to synchronize, then run:

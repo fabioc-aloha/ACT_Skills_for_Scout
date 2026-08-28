@@ -8,6 +8,7 @@ param(
     [string]$SkillsRoot = (Join-Path $HOME '.copilot\skills'),
     [switch]$Publish,
     [switch]$Apply,
+    [switch]$ExcalidrawDisabled,
     [string]$McpConfigPath = (Join-Path $HOME '.scout\m-mcp-servers.json')
 )
 
@@ -15,6 +16,14 @@ $ErrorActionPreference = 'Stop'
 if (-not $Apply) {
     Write-Output 'Preview only. Re-run with -Apply to publish/link all ACT skills and register Flint.'
     exit 0
+}
+
+if (-not $ExcalidrawDisabled) {
+    Write-Warning 'The bundled /excalidraw skill can interfere with the Mermaid and Illustrator skills.'
+    $confirmation = Read-Host 'Disable /excalidraw in Scout, then enter Y to continue [Y/N]'
+    if ($confirmation -notmatch '^(?i:y|yes)$') {
+        throw 'Installation cancelled. Disable the bundled /excalidraw skill in Scout, then rerun the installer.'
+    }
 }
 
 $publisher = Join-Path $PSScriptRoot 'Publish-ActScoutBundleToOneDrive.ps1'
