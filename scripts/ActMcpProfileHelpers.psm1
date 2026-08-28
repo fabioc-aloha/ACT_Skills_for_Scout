@@ -34,10 +34,11 @@ function Resolve-ActMcpProfileEntry {
         [Parameter(Mandatory)]$Profile,
         [Parameter(Mandatory)][string]$FabricRuntimeRoot,
         [Parameter(Mandatory)][string]$YouTubeRuntimeRoot,
-        [string]$AzureDevOpsOrganization
+        [string]$AzureDevOpsOrganization,
+        [switch]$AllowNonInstallable
     )
 
-    if (-not $Profile.installable) {
+    if (-not $Profile.installable -and -not $AllowNonInstallable) {
         throw "MCP profile '$($Profile.id)' is $($Profile.status) and cannot be installed."
     }
 

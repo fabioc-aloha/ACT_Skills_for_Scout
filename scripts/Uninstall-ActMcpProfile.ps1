@@ -24,7 +24,8 @@ $entry = Resolve-ActMcpProfileEntry `
     -Profile $selectedProfile `
     -FabricRuntimeRoot $FabricRuntimeRoot `
     -YouTubeRuntimeRoot $YouTubeRuntimeRoot `
-    -AzureDevOpsOrganization $AzureDevOpsOrganization
+    -AzureDevOpsOrganization $AzureDevOpsOrganization `
+    -AllowNonInstallable
 
 if (-not $Apply) {
     Write-Output "Preview only for removal of profile '$Profile'."

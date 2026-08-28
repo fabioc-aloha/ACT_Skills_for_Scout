@@ -105,8 +105,7 @@ $automaticProfiles = @(
     'fabric-docs-ro',
     'azure-devops-ro',
     'azure-kusto-ro',
-    'youtube-mcp-tools',
-    'powerbi-remote-pilot'
+    'youtube-mcp-tools'
 )
 $fabricRtiEnvironmentFile = Join-Path $McpEnvironmentRoot 'fabric-rti.env'
 if (Test-Path -LiteralPath $fabricRtiEnvironmentFile -PathType Leaf) {

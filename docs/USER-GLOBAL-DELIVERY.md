@@ -31,9 +31,9 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.13.0 Production Package
+## v1.14.0 Release Package
 
-`v1.13.0` is the publisher default. Its 27 direct skill folders include
+`v1.14.0` is the prepared publisher default. Its 27 direct skill folders include
 `act-office-native-authoring`, which creates native Word, PowerPoint, and Excel
 artifacts from approved source material using Scout Co-create capabilities
 rather than Markdown conversion. It also publishes a separate reviewed MCP
@@ -53,6 +53,7 @@ Uninstall-ActSkillsForScout.ps1
 Install-ActMcpProfile.ps1
 Uninstall-ActMcpProfile.ps1
 Test-ActMcpCatalog.ps1
+Test-ActMcpRegistrations.ps1
 MCP-CATALOG.md
 FABRIC-SYNAPSE-EVIDENCE.md
 library-manifest.json
@@ -105,9 +106,8 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 creates or confirms the source machine's junctions, and publishes the MCP
 profile catalog. It also enables Scout's **Load Copilot CLI skills** setting,
 which exposes `%USERPROFILE%\.copilot\skills` in the Skills UI, and
-automatically registers the six reviewed MCP profiles: Flint, Fabric docs,
-Azure DevOps read-only, Azure Kusto read-only, YouTube, and Power BI Remote
-Pilot metadata discovery. The installer
+automatically registers the five reviewed MCP profiles: Flint, Fabric docs,
+Azure DevOps read-only, Azure Kusto read-only, and YouTube. The installer
 requires valid Scout settings JSON and creates a timestamped backup before
 changing that preference. Without `-Apply`, the script only previews the bundle
 operation.
@@ -146,9 +146,9 @@ not import duplicate copies through the UI.
 ## MCP Profile Registration
 
 The ACT installer registers Flint, Fabric docs, Azure DevOps read-only for
-`GlobalCustomerExperience`, Azure Kusto read-only, YouTube, and Power BI Remote
-Pilot metadata discovery automatically. The Power BI profile stores no token or
-OAuth alias; complete interactive sign-in when Scout prompts.
+`GlobalCustomerExperience`, Azure Kusto read-only, and YouTube automatically.
+Power BI Remote Pilot is retained as a non-installable controlled-pilot record
+until Scout demonstrably enforces its remote tool allow-list.
 Preview or independently manage a specific profile:
 
 ```powershell
@@ -203,9 +203,18 @@ Remove MCP profiles independently.
 
 ## Current Source-Machine Validation
 
-On 2026-08-28, the published v1.10.0 library and its 14-record MCP catalog
-passed local validation. The following catalog profiles are registered in the
-active Scout installation and passed their harmless post-restart canaries:
+On 2026-08-28, the published v1.13.0 library passed a full safe, read-only
+acceptance test: all 38 enabled skills loaded, five automatic MCP profiles
+responded to their canaries, and Power BI Remote Pilot completed a
+`GetReportMetadata` canary against CPE Profiles Hub v1. The host exposed
+additional Power BI tools beyond the profile's declared metadata allow-list, so
+v1.14.0 removes it from automatic registration pending demonstrated host
+enforcement.
+
+The prepared v1.14.0 package and its 15-record MCP catalog passed local
+validation. The following automatic profiles match their reviewed
+registrations; `Test-ActMcpRegistrations.ps1` verifies this state without
+changing configuration:
 
 | Profile | Verified boundary | Canary |
 | --- | --- | --- |
@@ -214,6 +223,10 @@ active Scout installation and passed their harmless post-restart canaries:
 | `azure-devops-ro` | Pinned `@azure-devops/mcp@2.9.0` for `GlobalCustomerExperience`, with the catalog's host-level read-only tool allow-list. | `core_list_projects`. |
 | `azure-kusto-ro` | Pinned `@azure/mcp@3.0.0-beta.38` in read-only Kusto namespace mode. | `kusto` with `learn=true`. |
 | `youtube-mcp-tools` | Source-pinned, locally built public YouTube research server without configured API or direct-provider credentials. | `youtube_quota_status`. |
+
+`powerbi-remote-pilot` remains locally connected from the prior manual pilot,
+but v1.14.0 does not automatically install it. Its removal script remains able
+to match the local OAuth alias that Scout adds after authentication.
 
 `fabric-rti-ro` remains unregistered. It requires an explicit non-production
 Kusto service allow-list and this machine cannot currently retrieve its pinned

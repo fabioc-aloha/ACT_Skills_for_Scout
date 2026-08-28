@@ -2,7 +2,7 @@
 # The generated library manifest is a deployment receipt, not the source package manifest.
 [CmdletBinding()]
 param(
-    [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v1.13.0'),
+    [string]$PackageRoot = (Join-Path $PSScriptRoot '..\packages\act-skills-for-scout-v1.14.0'),
     [string]$LibraryRoot = $(if ($env:OneDrive) {
         Join-Path $env:OneDrive 'Documents\ScoutSkills\ACT_Skills_for_Scout'
     }),
@@ -47,7 +47,8 @@ foreach ($profileArtifact in @(
     'ActMcpProfileHelpers.psm1',
     'Install-ActMcpProfile.ps1',
     'Uninstall-ActMcpProfile.ps1',
-    'Test-ActMcpCatalog.ps1'
+    'Test-ActMcpCatalog.ps1',
+    'Test-ActMcpRegistrations.ps1'
 )) {
     Copy-Item -LiteralPath (Join-Path $PSScriptRoot $profileArtifact) `
         -Destination (Join-Path $LibraryRoot $profileArtifact) -Force

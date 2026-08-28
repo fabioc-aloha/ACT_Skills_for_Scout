@@ -37,21 +37,22 @@ skills root. Removal must move the target to a timestamped local backup first,
 then verify non-discovery in a new conversation. Do not delete unrelated skill
 folders.
 
-## Flint MCP Registration
+## MCP Profile Registration
 
-The published OneDrive library's combined uninstall script removes only the reviewed
-`flint-chart-mcp@0.5.1` command-server entry from
-`%USERPROFILE%\.scout\m-mcp-servers.json`; it refuses a differently configured
-entry and creates a timestamped backup before writing.
+The combined skill uninstall script does not remove MCP registrations. Remove
+one reviewed profile with the profile-specific script. It refuses a differently
+configured entry and creates a timestamped backup before writing.
 
 ```powershell
-.\Uninstall-ActSkillsForScout.ps1
-.\Uninstall-ActSkillsForScout.ps1 -Apply -Confirm:$false
+.\Uninstall-ActMcpProfile.ps1 -Profile flint
+.\Uninstall-ActMcpProfile.ps1 -Profile flint -Apply -Confirm:$false
 ```
 
-Restart Scout and confirm that Flint is no longer connected. This removes the
-registration only; `npx` package-cache cleanup is intentionally outside this
-script.
+Use the same pattern for any catalogued profile. `powerbi-remote-pilot` is not
+installable in v1.14.0, but its profile-specific removal script supports
+removing a prior manual registration. Restart Scout after removal. The scripts
+remove registrations only; runtime and package-cache cleanup are intentionally
+outside their scope.
 
 ## Future Plugin Mall Package
 

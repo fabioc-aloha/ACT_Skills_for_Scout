@@ -1,0 +1,9 @@
+# BEGIN ACT workspace bootstrap
+# Editor and operating-system artifacts only. Add language-specific ignores after
+# confirming the target project's toolchain.
+.DS_Store
+Thumbs.db
+.idea/
+*.suo
+*.user
+# END ACT workspace bootstrap
