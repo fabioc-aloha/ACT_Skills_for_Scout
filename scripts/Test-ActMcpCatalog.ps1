@@ -36,6 +36,23 @@ foreach ($profile in $profiles) {
         if ($null -eq $profile.configuration -or @($profile.tools).Count -eq 0) {
             throw "Installable MCP profile '$($profile.id)' requires configuration and a nonempty tool allow-list."
         }
+        if ([string]::IsNullOrWhiteSpace($profile.configuration.name)) {
+            throw "Installable MCP profile '$($profile.id)' requires a configuration name."
+        }
+        $isCommand = -not [string]::IsNullOrWhiteSpace($profile.configuration.command)
+        $isRemoteHttp = -not [string]::IsNullOrWhiteSpace($profile.configuration.url)
+        if ($isCommand -eq $isRemoteHttp) {
+            throw "Installable MCP profile '$($profile.id)' must define exactly one supported transport."
+        }
+        if ($isRemoteHttp) {
+            $url = $null
+            if (-not [uri]::TryCreate($profile.configuration.url, [uriKind]::Absolute, [ref]$url) -or $url.Scheme -ne 'https') {
+                throw "Remote MCP profile '$($profile.id)' requires an absolute HTTPS URL."
+            }
+            if ($profile.configuration.PSObject.Properties['oauthAlias']) {
+                throw "Remote MCP profile '$($profile.id)' must not include a user-specific OAuth alias."
+            }
+        }
         if ($profile.configuration.args -match 'YOUTUBE_MCP_DIRECT_') {
             throw "Profile '$($profile.id)' must not configure a direct-provider environment variable."
         }

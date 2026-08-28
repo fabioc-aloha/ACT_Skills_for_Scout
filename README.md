@@ -31,9 +31,10 @@ This publishes the bundle to
 `%OneDrive%\Documents\ScoutSkills\ACT_Skills_for_Scout`, creates user-global
 skill junctions under `%USERPROFILE%\.copilot\skills`, and publishes the
 MCP profile catalog. It also registers Flint, Fabric docs, Azure DevOps
-read-only for `GlobalCustomerExperience`, Azure Kusto read-only, and YouTube;
-Fabric RTI is registered only when its validated non-production allow-list is
-present. Restart Scout when the command completes.
+read-only for `GlobalCustomerExperience`, Azure Kusto read-only, YouTube, and
+the Power BI Remote Pilot metadata profile; Fabric RTI is registered only when
+its validated non-production allow-list is present. Restart Scout when the
+command completes and complete Power BI OAuth if Scout prompts for it.
 
 Every applied skill installation enables Scout's **Load Copilot CLI skills**
 setting so the user-global junctions are visible in the Skills UI. The
@@ -47,9 +48,10 @@ the Mermaid and Illustrator skills. For an intentional unattended install, pass
 
 ## Automatic MCP Profiles
 
-Applied skill installation automatically registers the five reviewed profiles:
-Flint, Fabric docs, Azure DevOps read-only, Azure Kusto read-only, and
-YouTube. Use the profile installer only to preview, remove, or explicitly
+Applied skill installation automatically registers the six reviewed profiles:
+Flint, Fabric docs, Azure DevOps read-only, Azure Kusto read-only, YouTube,
+and Power BI Remote Pilot metadata discovery. Use the profile installer only to
+preview, remove, or explicitly
 manage a profile:
 
 ```powershell
@@ -107,5 +109,5 @@ registration; remove MCP profiles separately with `Uninstall-ActMcpProfile.ps1`.
 The bundle provides reasoning, planning, review, documentation, safety,
 continuity, browser-safety, native Office authoring, and Flint chart/theme
 skills. Its MCP catalog automatically installs Flint, Fabric docs, Azure DevOps
-read-only, Azure Kusto read-only, and YouTube; Fabric RTI remains conditional
-on its non-production allow-list.
+read-only, Azure Kusto read-only, YouTube, and Power BI Remote Pilot metadata
+discovery; Fabric RTI remains conditional on its non-production allow-list.

@@ -31,9 +31,9 @@ published, syncable copy, not a Git working tree. The local Scout skill root
 contains only junctions, so it does not contain a second independent copy of
 the skills.
 
-## v1.12.0 Production Package
+## v1.13.0 Production Package
 
-`v1.12.0` is the publisher default. Its 27 direct skill folders include
+`v1.13.0` is the publisher default. Its 27 direct skill folders include
 `act-office-native-authoring`, which creates native Word, PowerPoint, and Excel
 artifacts from approved source material using Scout Co-create capabilities
 rather than Markdown conversion. It also publishes a separate reviewed MCP
@@ -105,8 +105,9 @@ Set-Location C:\Development\ACT_Skills_for_Scout
 creates or confirms the source machine's junctions, and publishes the MCP
 profile catalog. It also enables Scout's **Load Copilot CLI skills** setting,
 which exposes `%USERPROFILE%\.copilot\skills` in the Skills UI, and
-automatically registers the five reviewed MCP profiles: Flint, Fabric docs,
-Azure DevOps read-only, Azure Kusto read-only, and YouTube. The installer
+automatically registers the six reviewed MCP profiles: Flint, Fabric docs,
+Azure DevOps read-only, Azure Kusto read-only, YouTube, and Power BI Remote
+Pilot metadata discovery. The installer
 requires valid Scout settings JSON and creates a timestamped backup before
 changing that preference. Without `-Apply`, the script only previews the bundle
 operation.
@@ -145,7 +146,9 @@ not import duplicate copies through the UI.
 ## MCP Profile Registration
 
 The ACT installer registers Flint, Fabric docs, Azure DevOps read-only for
-`GlobalCustomerExperience`, Azure Kusto read-only, and YouTube automatically.
+`GlobalCustomerExperience`, Azure Kusto read-only, YouTube, and Power BI Remote
+Pilot metadata discovery automatically. The Power BI profile stores no token or
+OAuth alias; complete interactive sign-in when Scout prompts.
 Preview or independently manage a specific profile:
 
 ```powershell

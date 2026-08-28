@@ -45,25 +45,32 @@ function Resolve-ActMcpProfileEntry {
         throw "MCP profile 'azure-devops-ro' requires -AzureDevOpsOrganization."
     }
 
-    $organization = if ($AzureDevOpsOrganization) { $AzureDevOpsOrganization } else { '' }
-    $command = $Profile.configuration.command.Replace('{{fabricRuntimeRoot}}', $FabricRuntimeRoot)
-    $command = $command.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
-    $arguments = @(
-        $Profile.configuration.args | ForEach-Object {
-            $argument = $_.Replace('{{azureDevOpsOrganization}}', $organization)
-            $argument = $argument.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
-            $argument.Replace('{{fabricRuntimeRoot}}', $FabricRuntimeRoot)
-        }
-    )
     $config = [ordered]@{
         name = $Profile.configuration.name
-        type = 'command'
-        command = $command
-        args = $arguments
     }
-    $envFileProperty = $Profile.configuration.PSObject.Properties['envFile']
-    if ($envFileProperty) {
-        $config.envFile = $envFileProperty.Value
+    $urlProperty = $Profile.configuration.PSObject.Properties['url']
+    if ($urlProperty) {
+        $config.url = $urlProperty.Value
+    }
+    else {
+        $organization = if ($AzureDevOpsOrganization) { $AzureDevOpsOrganization } else { '' }
+        $command = $Profile.configuration.command.Replace('{{fabricRuntimeRoot}}', $FabricRuntimeRoot)
+        $command = $command.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
+        $arguments = @(
+            $Profile.configuration.args | ForEach-Object {
+                $argument = $_.Replace('{{azureDevOpsOrganization}}', $organization)
+                $argument = $argument.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
+                $argument.Replace('{{fabricRuntimeRoot}}', $FabricRuntimeRoot)
+            }
+        )
+        $config.type = 'command'
+        $config.command = $command
+        $config.args = $arguments
+
+        $envFileProperty = $Profile.configuration.PSObject.Properties['envFile']
+        if ($envFileProperty) {
+            $config.envFile = $envFileProperty.Value
+        }
     }
 
     return [pscustomobject]@{
@@ -79,8 +86,23 @@ function Test-ActMcpEntry {
         [Parameter(Mandatory)]$Expected
     )
 
+    $actualConfig = $Actual.config
+    if ($Expected.config.PSObject.Properties['url'] -and $actualConfig.PSObject.Properties['oauthAlias']) {
+        if ([string]::IsNullOrWhiteSpace($actualConfig.oauthAlias)) {
+            return $false
+        }
+
+        $comparableConfig = [ordered]@{}
+        foreach ($property in $actualConfig.PSObject.Properties) {
+            if ($property.Name -ne 'oauthAlias') {
+                $comparableConfig[$property.Name] = $property.Value
+            }
+        }
+        $actualConfig = [pscustomobject]$comparableConfig
+    }
+
     return $Actual.builtin -eq $Expected.builtin `
-        -and (($Actual.config | ConvertTo-Json -Depth 10 -Compress) -eq
+        -and (($actualConfig | ConvertTo-Json -Depth 10 -Compress) -eq
             ($Expected.config | ConvertTo-Json -Depth 10 -Compress)) `
         -and @($Actual.tools).Count -eq @($Expected.tools).Count `
         -and -not (Compare-Object -ReferenceObject @($Actual.tools) -DifferenceObject @($Expected.tools))
