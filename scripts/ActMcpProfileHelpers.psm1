@@ -51,7 +51,8 @@ function Resolve-ActMcpProfileEntry {
     $arguments = @(
         $Profile.configuration.args | ForEach-Object {
             $argument = $_.Replace('{{azureDevOpsOrganization}}', $organization)
-            $argument.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
+            $argument = $argument.Replace('{{youtubeRuntimeRoot}}', $YouTubeRuntimeRoot)
+            $argument.Replace('{{fabricRuntimeRoot}}', $FabricRuntimeRoot)
         }
     )
     $config = [ordered]@{
