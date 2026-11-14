@@ -1,5 +1,7 @@
 # ACT Skills for Scout
 
+> **Note:** Part of the Alex ACT family. The current flagship release is [Alex_ACT_ONE](https://github.com/fabioc-aloha/Alex_ACT_ONE).
+
 ![ACT Skills for Scout banner](assets/act-skills-scout-banner.svg)
 
 Install a user-global bundle of 27 ACT skills and a curated MCP profile catalog
